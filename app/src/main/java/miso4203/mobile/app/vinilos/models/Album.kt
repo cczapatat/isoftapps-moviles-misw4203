@@ -1,4 +1,4 @@
-package com.example.vinyls_jetpack_application.models
+package miso4203.mobile.app.vinilos.models
 
 data class Album (
     val albumId:Int,
