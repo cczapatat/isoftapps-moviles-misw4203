@@ -21,33 +21,55 @@
             app:strokeColor="@color/stroke_color"
             app:strokeWidth="1dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                xmlns:tools="http://schemas.android.com/tools">
+
+                <ImageView
+                    android:id="@+id/albumCover"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@{album.cover}"
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textAlbumName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
-                    android:paddingTop="3dp"
+                    android:paddingTop="18dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="3dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/albumCover"
+                    android:layout_toEndOf="@id/albumCover"
                     android:text="@{album.name}"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    tools:text="Mana"/>
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textAlbumGenre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/albumCover"
+                    android:layout_toEndOf="@id/albumCover"
                     android:paddingStart="8dp"
-                    android:paddingTop="3dp"
+                    android:paddingTop="55dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="3dp"
-                    android:text="@{album.description}" />
+                    android:textSize="16sp"
+                    android:text="@{album.genre}"
+                    tools:text="Rock"/>
 
-            </LinearLayout>
+            </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

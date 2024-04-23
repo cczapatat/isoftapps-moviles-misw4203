@@ -33,9 +33,10 @@ class NetworkServiceAdapter constructor(context: Context) {
                 val list = mutableListOf<Album>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
+                    val albumName = item.getString("name")
                     list.add(i, Album(
-                        albumId = item.getInt("id"),
-                        name = item.getString("name"),
+                        id = item.getInt("id"),
+                        name = if (albumName.length > 16) "${albumName.substring(0,16)}..." else albumName ,
                         cover = item.getString("cover"),
                         recordLabel = item.getString("recordLabel"),
                         releaseDate = item.getString("releaseDate"),

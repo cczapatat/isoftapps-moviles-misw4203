@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.AlbumItemBinding
 import miso4203.mobile.app.vinilos.models.Album
@@ -28,7 +30,11 @@ class AlbumsAdapter: RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.album = albums[position]
+            it.album  = albums[position]
+
+            Picasso.get().load(albums[position].cover)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(it.albumCover)
         }
     }
 

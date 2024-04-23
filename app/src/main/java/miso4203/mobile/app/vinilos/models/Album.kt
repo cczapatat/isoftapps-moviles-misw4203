@@ -1,7 +1,7 @@
 package miso4203.mobile.app.vinilos.models
 
 data class Album (
-    val albumId:Int,
+    val id:Int,
     val name:String,
     val cover:String,
     val releaseDate:String,
