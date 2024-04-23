@@ -35,7 +35,7 @@ class AlbumFragment : Fragment() {
 
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         val view: View = binding.root
-        viewModelAdapter = AlbumsAdapter()
+        viewModelAdapter = AlbumsAdapter(albumViewModel)
 
         return view
     }

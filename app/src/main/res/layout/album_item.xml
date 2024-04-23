@@ -4,28 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.widget.CompoundButton"/>
         <variable name="album" type="miso4203.mobile.app.vinilos.models.Album"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/stroke_color"
-            app:strokeWidth="1dp">
+            app:strokeColor="@color/brown_50"
+            app:strokeWidth="1dp"
+            android:background="@color/focused_item_color"
+            app:cardCornerRadius="3dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="10dp"
+
                 xmlns:tools="http://schemas.android.com/tools">
 
                 <ImageView
@@ -36,6 +41,7 @@
                     android:layout_marginRight="10dp"
                     android:scaleType="centerCrop"
                     android:src="@{album.cover}"
+                    android:background="@drawable/rounded_shape"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView

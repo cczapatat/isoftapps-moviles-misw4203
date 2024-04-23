@@ -15,6 +15,13 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
     private val _albums = MutableLiveData<List<Album>>()
     private val albumRepository = AlbumRepository(application)
 
+    private val _selectedAlbumId = MutableLiveData<Int>()
+    val selectedAlbumId : LiveData<Int> get() = _selectedAlbumId
+
+    fun setSelectedAlbumId(albumId: Int){
+        _selectedAlbumId.value = albumId
+    }
+
     val albums: LiveData<List<Album>>
         get() = _albums
 
