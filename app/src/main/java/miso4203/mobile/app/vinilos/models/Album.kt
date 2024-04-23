@@ -1,11 +1,11 @@
 package miso4203.mobile.app.vinilos.models
 
-data class Album (
-    val id:Int,
-    val name:String,
-    val cover:String,
-    val releaseDate:String,
-    val description:String,
-    val genre:String,
-    val recordLabel:String
+open class Album(
+    open val id: Int,
+    open val name: String,
+    open val cover: String,
+    open val releaseDate: String,
+    open val description: String,
+    open val genre: String,
+    open val recordLabel: String
 )

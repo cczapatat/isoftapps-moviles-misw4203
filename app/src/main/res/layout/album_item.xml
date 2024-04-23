@@ -29,16 +29,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="10dp"
-
-                xmlns:tools="http://schemas.android.com/tools">
+                android:layout_margin="10dp">
 
                 <ImageView
                     android:id="@+id/albumCover"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
                     android:scaleType="centerCrop"
                     android:src="@{album.cover}"
                     android:background="@drawable/rounded_shape"
@@ -53,7 +50,6 @@
                     android:paddingEnd="8dp"
                     android:paddingBottom="3dp"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@id/albumCover"
                     android:layout_toEndOf="@id/albumCover"
                     android:text="@{album.name}"
                     android:textStyle="bold"
@@ -65,7 +61,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@id/albumCover"
                     android:layout_toEndOf="@id/albumCover"
                     android:paddingStart="8dp"
                     android:paddingTop="55dp"

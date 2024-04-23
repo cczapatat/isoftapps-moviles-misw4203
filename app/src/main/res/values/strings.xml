@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">App Vinilos</string>
     <string name="album_title">Albums</string>
+    <string name="album_detail">Album Detail</string>
     <string name="artist_title">Artists</string>
     <string name="collector_title">Collectors</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="album_cover_desc">Album\'s cover</string>
 </resources>

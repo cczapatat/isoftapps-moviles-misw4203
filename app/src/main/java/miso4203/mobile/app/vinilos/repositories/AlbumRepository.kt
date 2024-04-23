@@ -5,11 +5,11 @@ import com.android.volley.VolleyError
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.network.NetworkServiceAdapter
 
-class AlbumRepository (val application: Application){
-    fun refreshData(callback: (List<Album>)->Unit, onError: (VolleyError)->Unit) {
+class AlbumRepository(private val application: Application) {
+    fun refreshData(callback: (List<Album>) -> Unit, onError: (VolleyError) -> Unit) {
         NetworkServiceAdapter.getInstance(application).getAlbums({
             callback(it)
-        },{
+        }, {
             onError
         })
     }
