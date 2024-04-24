@@ -5,10 +5,12 @@
     <color name="purple_700">#EAC8A8</color>
     <color name="brown_50">#16AC6A10</color>
     <color name="teal_200">#AC6A10</color>
+    <color name="teal_600">#845416</color>
     <color name="teal_700">#8c5100</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="stroke_color">#95EDED</color>
     <color name="selected_item_color">#EAE1DA</color>
     <color name="focused_item_color">#D3D1D0</color>
+    <color name="txt_btn_color">#381e72</color>
 </resources>

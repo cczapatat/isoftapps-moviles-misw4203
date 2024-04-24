@@ -6,11 +6,13 @@
     <string name="collector_title">Collectors</string>
     <string name="album_detail_artists_title">Artists:</string>
     <string name="album_detail_tracks_title">Tracks:</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="album_cover_desc">Album\'s cover</string>
     <string name="element_text">performer</string>
     <string name="track_text">Track item</string>
     <string name="element_text_track">track</string>
     <string name="element_text_duration">duration</string>
+    <string name="visitor_login">Visitor</string>
+    <string name="collector_login">Collector</string>
+    <string name="exit">Exit</string>
+    <string name="profile">Profile</string>
 </resources>
