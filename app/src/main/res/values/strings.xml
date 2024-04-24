@@ -12,4 +12,5 @@
     <string name="element_text">performer</string>
     <string name="track_text">Track item</string>
     <string name="element_text_track">track</string>
+    <string name="element_text_duration">duration</string>
 </resources>

@@ -1,6 +1,7 @@
 package miso4203.mobile.app.vinilos.ui.album_detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,14 @@ import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumDetailBinding
 import miso4203.mobile.app.vinilos.ui.adapters.PerformerAdapter
 import miso4203.mobile.app.vinilos.ui.adapters.TrackAdapter
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+
+
+
+
+
 
 
 class AlbumDetailFragment : Fragment() {
@@ -54,7 +63,17 @@ class AlbumDetailFragment : Fragment() {
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .into(binding.albumDetailImage)
                 } catch (ex: Exception) {}
-                binding.albumDetailName.text = it.name + ":"+ it.description
+                var dateTime: LocalDateTime
+                try {
+                    // Define the format of the date string
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    // Parse the date string to LocalDateTime
+                    dateTime = LocalDateTime.parse(it.releaseDate, formatter)
+                    Log.d("dateparsed ", dateTime.year.toString())
+                } catch (ex: Exception) { dateTime = LocalDateTime.now()}
+                binding.albumDetailName.text = it.name + ":"+ it.description + "\n" +
+                        "The album was released on " + dateTime.month.name.lowercase().capitalize() + " " +
+                        dateTime.dayOfMonth.toString() + ", " + dateTime.year.toString()
                 binding.albumDetailPerformersTitle.text = "Performers:"
                 binding.albumDetailTracksTitle.text = "Tracks:"
 

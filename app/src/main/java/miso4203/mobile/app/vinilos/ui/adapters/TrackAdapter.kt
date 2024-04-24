@@ -18,10 +18,11 @@ class TrackAdapter (private val dataSet: ArrayList<Track>):
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView
-
+        val textDurationView: TextView
         init {
             // Define click listener for the ViewHolder's View
             textView = view.findViewById(R.id.textViewTrack)
+            textDurationView = view.findViewById(R.id.textViewTrackDuration)
         }
     }
 
@@ -40,6 +41,7 @@ class TrackAdapter (private val dataSet: ArrayList<Track>):
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView.text = dataSet[position].name
+        viewHolder.textDurationView.text = dataSet[position].duration
         Log.d("Track", dataSet[position].name)
 
     }
