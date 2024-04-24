@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.89"
         android:drawableLeft="@drawable/artist_icon_button"
+        android:drawableTint="@color/white"
+        android:backgroundTint="@color/teal_600"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:padding="10dp"
