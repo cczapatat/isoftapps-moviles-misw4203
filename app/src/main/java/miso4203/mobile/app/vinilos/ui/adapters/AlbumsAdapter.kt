@@ -31,6 +31,7 @@ class AlbumsAdapter() :
         val withDataBinding: AlbumItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), AlbumViewHolder.LAYOUT, parent, false
         )
+
         return AlbumViewHolder(withDataBinding)
     }
 
