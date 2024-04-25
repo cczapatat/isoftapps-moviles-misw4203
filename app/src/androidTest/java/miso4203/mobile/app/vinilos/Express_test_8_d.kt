@@ -56,16 +56,6 @@ class Express_test_8_d {
         searchAutoComplete.perform(click())
         searchAutoComplete.perform(typeText("something"),closeSoftKeyboard())
 
-
-        /* val searchAutoComplete2 = onView(
-             allOf(
-                 withId(R.id.searchView),
-
-                 isDisplayed()
-             )
-         )
-         searchAutoComplete2.perform(pressImeActionButton())*/
-
         val searchAutoComplete2 = onView(
             allOf(
                 withId(R.id.searchView),
