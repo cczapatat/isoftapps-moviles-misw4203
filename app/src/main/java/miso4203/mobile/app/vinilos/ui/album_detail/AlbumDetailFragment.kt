@@ -1,14 +1,12 @@
 package miso4203.mobile.app.vinilos.ui.album_detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +15,6 @@ import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumDetailBinding
 import miso4203.mobile.app.vinilos.ui.adapters.PerformerAdapter
 import miso4203.mobile.app.vinilos.ui.adapters.TrackAdapter
-import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -74,7 +71,7 @@ class AlbumDetailFragment : Fragment() {
                 } catch (ex: Exception) {
                     dateTime = LocalDateTime.now()
                 }
-                binding.textProfile.text = it.name.substring(0, 20)
+                binding.textProfile.text = it.name
                 binding.albumDetailName.text = it.name + ":" + it.description + "\n" +
                         "The album was released on " + dateTime.month.name.lowercase()
                     .capitalize() + " " +

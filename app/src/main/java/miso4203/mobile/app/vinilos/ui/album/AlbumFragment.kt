@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
 import miso4203.mobile.app.vinilos.models.Album
@@ -36,6 +34,8 @@ class AlbumFragment : Fragment() {
         val view: View = binding.root
         viewModelAdapter = AlbumsAdapter()
 
+
+
         return view
     }
 
@@ -45,13 +45,40 @@ class AlbumFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
+
+        val searchView = activity.findViewById<SearchView>(R.id.searchView)
+
         viewModel = ViewModelProvider(
-            this,
-            AlbumViewModel.Factory(activity.application)
-        ).get(AlbumViewModel::class.java)
+            this, AlbumViewModel.Factory(activity.application)
+        )[AlbumViewModel::class.java]
+
         viewModel.albums.observe(viewLifecycleOwner, Observer<List<Album>> {
             it.apply {
                 viewModelAdapter!!.albums = this
+            }
+        })
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                filterItems(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterItems(newText)
+                return false
+            }
+
+            private fun filterItems (query: String?) {
+                if (query.isNullOrBlank()) {
+                    viewModelAdapter?.albums = viewModel.albumsOrigin
+                    return
+                }
+
+                val items = viewModelAdapter?.albums ?: listOf()
+                val itemsFiltered = items.filter { it.name.lowercase().contains(query.lowercase()) }
+                viewModelAdapter?.albums = itemsFiltered
             }
         })
 

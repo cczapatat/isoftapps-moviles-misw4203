@@ -12,17 +12,14 @@ import miso4203.mobile.app.vinilos.repositories.AlbumRepository
 class AlbumViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _albums = MutableLiveData<List<Album>>()
+    private val _albumsOrigin = mutableListOf<Album>()
     private val albumRepository = AlbumRepository(application)
-
-    private val _selectedAlbumId = MutableLiveData<Int>()
-    val selectedAlbumId : LiveData<Int> get() = _selectedAlbumId
-
-    fun setSelectedAlbumId(albumId: Int){
-        _selectedAlbumId.value = albumId
-    }
 
     val albums: LiveData<List<Album>>
         get() = _albums
+
+    val albumsOrigin: List<Album>
+        get() = _albumsOrigin
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
@@ -41,6 +38,7 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
     private fun refreshDataFromNetwork() {
         albumRepository.refreshData({
             _albums.postValue(it)
+            _albumsOrigin.addAll(it)
             _eventNetworkError.value = false
             _isNetworkErrorShown.value = false
         }, {
