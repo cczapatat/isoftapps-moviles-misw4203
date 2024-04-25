@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,8 +11,8 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/header_menu"
             android:id="@+id/header_nav"
+            layout="@layout/header_menu"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
@@ -45,9 +44,9 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:translationZ="999dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:translationZ="999dp">
+        app:layout_constraintRight_toRightOf="parent">
 
         <FrameLayout
             android:id="@+id/standard_side_sheet"
@@ -58,7 +57,7 @@
 
             <include
                 android:id="@+id/lateralMenu"
-                layout="@layout/lateral_menu"/>
+                layout="@layout/lateral_menu" />
 
         </FrameLayout>
 

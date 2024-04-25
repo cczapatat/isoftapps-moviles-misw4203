@@ -2,6 +2,7 @@ package miso4203.mobile.app.vinilos
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val bundle = intent.extras
         isCollector = bundle?.getBoolean("is_collector", false) ?: false
 
+        val headerNav = binding.headerNav.header
         val navView: BottomNavigationView = binding.navView
 
         val navHostFragment = supportFragmentManager
@@ -32,12 +34,21 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
-        /* val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_album, R.id.navigation_artist, R.id.navigation_collector
-            )
-        ) */
-        // setupActionBarWithNavController(navController, appBarConfiguration)
+        val navIds = arrayListOf(
+            R.id.navigation_album,
+            R.id.navigation_artist,
+            R.id.navigation_collector
+        )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (navIds.contains(destination.id)) {
+                navView.visibility = View.VISIBLE
+                headerNav.visibility = View.VISIBLE
+            } else {
+                navView.visibility = View.GONE
+                headerNav.visibility = View.GONE
+            }
+        }
         navView.setupWithNavController(navController)
 
         val standardSideSheetBehavior = SideSheetBehavior.from(binding.standardSideSheet)

@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.ui.adapters.AlbumsAdapter
@@ -28,12 +32,9 @@ class AlbumFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val albumViewModel =
-            ViewModelProvider(this).get(AlbumViewModel::class.java)
-
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         val view: View = binding.root
-        viewModelAdapter = AlbumsAdapter(albumViewModel)
+        viewModelAdapter = AlbumsAdapter()
 
         return view
     }

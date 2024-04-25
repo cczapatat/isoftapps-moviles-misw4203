@@ -42,8 +42,6 @@ class TrackAdapter (private val dataSet: ArrayList<Track>):
         // contents of the view with that element
         viewHolder.textView.text = dataSet[position].name
         viewHolder.textDurationView.text = dataSet[position].duration
-        Log.d("Track", dataSet[position].name)
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
