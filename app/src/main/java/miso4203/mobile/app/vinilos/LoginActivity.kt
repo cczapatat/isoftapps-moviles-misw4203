@@ -17,16 +17,19 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnVisitorLogin.setOnClickListener {
             Toast.makeText(this, "Welcome Visitor", Toast.LENGTH_SHORT).show()
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            intent.putExtra("is_collector", false)
-            startActivity(intent)
+            this.goToMainActivity(false)
         }
 
         binding.btnCollectorLogin.setOnClickListener {
             Toast.makeText(this, "Welcome Collector", Toast.LENGTH_SHORT).show()
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            intent.putExtra("is_collector", true)
-            startActivity(intent)
+            this.goToMainActivity(true)
         }
+    }
+
+    private fun goToMainActivity(isCollector: Boolean) {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.putExtra("is_collector", isCollector)
+        startActivity(intent)
+        finish()
     }
 }
