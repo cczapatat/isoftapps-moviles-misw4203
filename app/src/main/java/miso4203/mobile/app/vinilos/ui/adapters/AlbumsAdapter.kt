@@ -18,7 +18,7 @@ import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 import miso4203.mobile.app.vinilos.ui.album.AlbumViewModel
 
 
-class AlbumsAdapter(private val albumViewModel: AlbumViewModel) :
+class AlbumsAdapter() :
     RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
     var albums: List<Album> = emptyList()
@@ -45,7 +45,6 @@ class AlbumsAdapter(private val albumViewModel: AlbumViewModel) :
                 .into(it.albumCover)
 
             holder.viewDataBinding.root.setOnClickListener {
-                albumViewModel.setSelectedAlbumId(album.id)
                 holder.viewDataBinding.cardView.setBackgroundColor(
                     ContextCompat.getColor(
                         holder.itemView.context,

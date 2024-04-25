@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,14 +17,9 @@ import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumDetailBinding
 import miso4203.mobile.app.vinilos.ui.adapters.PerformerAdapter
 import miso4203.mobile.app.vinilos.ui.adapters.TrackAdapter
+import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
-
-
-
-
-
 
 
 class AlbumDetailFragment : Fragment() {
@@ -50,6 +46,11 @@ class AlbumDetailFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
+
+        binding.btnBack.setOnClickListener {
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+
         val args: AlbumDetailFragmentArgs by navArgs()
         viewModel = ViewModelProvider(
             this,
@@ -62,17 +63,21 @@ class AlbumDetailFragment : Fragment() {
                     Picasso.get().load(it.cover)
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .into(binding.albumDetailImage)
-                } catch (ex: Exception) {}
+                } catch (ex: Exception) {
+                }
                 var dateTime: LocalDateTime
                 try {
                     // Define the format of the date string
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                     // Parse the date string to LocalDateTime
                     dateTime = LocalDateTime.parse(it.releaseDate, formatter)
-                    Log.d("dateparsed ", dateTime.year.toString())
-                } catch (ex: Exception) { dateTime = LocalDateTime.now()}
-                binding.albumDetailName.text = it.name + ":"+ it.description + "\n" +
-                        "The album was released on " + dateTime.month.name.lowercase().capitalize() + " " +
+                } catch (ex: Exception) {
+                    dateTime = LocalDateTime.now()
+                }
+                binding.textProfile.text = it.name.substring(0, 20)
+                binding.albumDetailName.text = it.name + ":" + it.description + "\n" +
+                        "The album was released on " + dateTime.month.name.lowercase()
+                    .capitalize() + " " +
                         dateTime.dayOfMonth.toString() + ", " + dateTime.year.toString()
                 binding.albumDetailPerformersTitle.text = "Performers:"
                 binding.albumDetailTracksTitle.text = "Tracks:"
