@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.lateralMenu.btnExit.setOnClickListener {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
+            finish()
         }
     }
 
