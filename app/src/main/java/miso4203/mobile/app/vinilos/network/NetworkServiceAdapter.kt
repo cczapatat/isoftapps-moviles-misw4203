@@ -16,7 +16,7 @@ import org.json.JSONObject
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object {
-        const val BASE_URL = "https://vynils-back-heroku.herokuapp.com/"
+        const val BASE_URL = "http://cryzat.xyz/"
         const val UNKNOWN = "unknown"
         const val COVER_UNKNOWN = "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
         private var instance: NetworkServiceAdapter? = null
