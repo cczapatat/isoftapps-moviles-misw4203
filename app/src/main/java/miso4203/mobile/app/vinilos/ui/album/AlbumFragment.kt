@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
-import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.ui.adapters.AlbumsAdapter
 
 class AlbumFragment : Fragment() {
@@ -26,17 +24,12 @@ class AlbumFragment : Fragment() {
     private var viewModelAdapter: AlbumsAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
-        val view: View = binding.root
         viewModelAdapter = AlbumsAdapter()
 
-
-
-        return view
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,13 +45,13 @@ class AlbumFragment : Fragment() {
             this, AlbumViewModel.Factory(activity.application)
         )[AlbumViewModel::class.java]
 
-        viewModel.albums.observe(viewLifecycleOwner, Observer<List<Album>> {
+        viewModel.albums.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.albums = this
             }
-        })
+        }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
                 filterItems(query)
@@ -70,23 +63,22 @@ class AlbumFragment : Fragment() {
                 return false
             }
 
-            private fun filterItems (query: String?) {
+            private fun filterItems(query: String?) {
                 if (query.isNullOrBlank()) {
                     viewModelAdapter?.albums = viewModel.albumsOrigin
                     return
                 }
 
-                val items = viewModelAdapter?.albums ?: listOf()
-                val itemsFiltered = items.filter { it.name.lowercase().contains(query.lowercase()) }
+                val itemsFiltered = viewModel.albumsOrigin.filter {
+                    it.name.lowercase().contains(query.lowercase())
+                }
                 viewModelAdapter?.albums = itemsFiltered
             }
         })
 
-        viewModel.eventNetworkError.observe(
-            viewLifecycleOwner,
-            Observer<Boolean> { isNetworkError ->
-                if (isNetworkError) onNetworkError()
-            })
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
+            if (isNetworkError) onNetworkError()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,6 +90,7 @@ class AlbumFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        viewModelAdapter = null
     }
 
     private fun onNetworkError() {

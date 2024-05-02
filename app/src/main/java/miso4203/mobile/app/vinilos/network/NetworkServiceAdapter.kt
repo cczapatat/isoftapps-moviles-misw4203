@@ -4,21 +4,25 @@ import android.content.Context
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.AlbumDetail
+import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.models.Performer
 import miso4203.mobile.app.vinilos.models.Track
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object {
         const val BASE_URL = "http://cryzat.xyz/"
         const val UNKNOWN = "unknown"
-        const val COVER_UNKNOWN = "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
+        const val COVER_UNKNOWN =
+            "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
         private var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) = instance ?: synchronized(this) {
             instance ?: NetworkServiceAdapter(context).also {
@@ -32,7 +36,7 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    fun getAlbums(onComplete: (resp: List<Album>) -> Unit, onError: (error: VolleyError) -> Unit) {
+    suspend fun getAlbums() = suspendCoroutine<List<Album>> { cont ->
         requestQueue.add(
             getRequest("albums", { response ->
                 val resp = JSONArray(response)
@@ -43,7 +47,11 @@ class NetworkServiceAdapter constructor(context: Context) {
                     list.add(
                         i, Album(
                             id = item.optInt("id", -1),
-                            name = if (albumName.length > 16) "${albumName.substring(0,16)}..." else albumName ,
+                            name = if (albumName.length > 16) "${
+                                albumName.substring(
+                                    0, 16
+                                )
+                            }..." else albumName,
                             cover = item.optString("cover", COVER_UNKNOWN),
                             recordLabel = item.optString("recordLabel", UNKNOWN),
                             releaseDate = item.optString("releaseDate", UNKNOWN),
@@ -52,18 +60,14 @@ class NetworkServiceAdapter constructor(context: Context) {
                         )
                     )
                 }
-                onComplete(list)
+                cont.resume(list)
             }, {
-                onError(it)
+                cont.resumeWithException(it)
             })
         )
     }
 
-    fun getAlbumById(
-        albumId: Int,
-        onComplete: (resp: AlbumDetail) -> Unit,
-        onError: (error: VolleyError) -> Unit
-    ) {
+    suspend fun getAlbumById(albumId: Int) = suspendCoroutine { cont ->
         requestQueue.add(
             getRequest("albums/${albumId}", { response ->
                 val resp = JSONObject(response)
@@ -100,9 +104,39 @@ class NetworkServiceAdapter constructor(context: Context) {
                         )
                     )
                 }
-                onComplete(albumDetail)
+                cont.resume(albumDetail)
             }, {
-                onError(it)
+                cont.resumeWithException(it)
+            })
+        )
+    }
+
+    suspend fun getArtists() = suspendCoroutine<List<Artist>> { cont ->
+        requestQueue.add(
+            getRequest("musicians", { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Artist>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    val artistName = item.optString("name", UNKNOWN)
+                    list.add(
+                        i, Artist(
+                            id = item.optInt("id", -1),
+                            name = if (artistName.length > 16) "${
+                                artistName.substring(
+                                    0, 16
+                                )
+                            }..." else artistName,
+                            image = item.optString("image", COVER_UNKNOWN),
+                            description = item.optString("description", UNKNOWN),
+                            birthDate = item.optString("birthDate", UNKNOWN),
+                            totalAlbums = item.optJSONArray("albums")?.length() ?: 0
+                        )
+                    )
+                }
+                cont.resume(list)
+            }, {
+                cont.resumeWithException(it)
             })
         )
     }

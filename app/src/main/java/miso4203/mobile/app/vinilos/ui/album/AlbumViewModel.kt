@@ -6,6 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.repositories.AlbumRepository
 
@@ -21,12 +25,12 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
     val albumsOrigin: List<Album>
         get() = _albumsOrigin
 
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
 
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
@@ -36,14 +40,19 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun refreshDataFromNetwork() {
-        albumRepository.refreshData({
-            _albums.postValue(it)
-            _albumsOrigin.addAll(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        }, {
-            _eventNetworkError.value = true
-        })
+        try {
+            viewModelScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.IO) {
+                    val items = albumRepository.refreshData()
+                    _albums.postValue(items)
+                    _albumsOrigin.addAll(items)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        } catch (_: Exception) {
+            _eventNetworkError.postValue(true)
+        }
     }
 
     fun onNetworkErrorShown() {

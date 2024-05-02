@@ -26,13 +26,12 @@ class CollectorFragment : Fragment() {
             ViewModelProvider(this).get(CollectorViewModel::class.java)
 
         _binding = FragmentCollectorBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
         collectorViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {

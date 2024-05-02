@@ -3,7 +3,6 @@ package miso4203.mobile.app.vinilos.ui.adapters
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -15,7 +14,6 @@ import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.AlbumItemBinding
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
-import miso4203.mobile.app.vinilos.ui.album.AlbumViewModel
 
 
 class AlbumsAdapter() :
