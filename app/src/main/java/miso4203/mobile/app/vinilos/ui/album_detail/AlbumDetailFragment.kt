@@ -60,16 +60,15 @@ class AlbumDetailFragment : Fragment() {
                     Picasso.get().load(it.cover)
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .into(binding.albumDetailImage)
-                } catch (ex: Exception) {
+                } catch (_: Exception) {
                 }
-                var dateTime: LocalDateTime
-                try {
+                val dateTime = try {
                     // Define the format of the date string
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                     // Parse the date string to LocalDateTime
-                    dateTime = LocalDateTime.parse(it.releaseDate, formatter)
-                } catch (ex: Exception) {
-                    dateTime = LocalDateTime.now()
+                    LocalDateTime.parse(it.releaseDate, formatter)
+                } catch (_: Exception) {
+                    LocalDateTime.now()
                 }
                 binding.textProfile.text = it.name
                 binding.albumDetailName.text = it.name + ":" + it.description + "\n" +
