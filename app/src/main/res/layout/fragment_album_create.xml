@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.album_create.AlbumCreateFragment">
+
+    <TextView
+        android:id="@+id/nameAlbumLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Nombre album"
+        android:textColor="@color/teal_700"
+        android:textSize="18dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/nameAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="28dp"
+        android:inputType="text"
+        android:orientation="horizontal"
+        android:shadowColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/nameAlbumLabel"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateAlbum"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="124dp"
+        android:text="Save"
+        android:textAlignment="center"
+        android:textColor="@color/txt_btn_color"
+        app:backgroundTint="@color/purple_500"
+
+        app:icon="@drawable/visitor_icon"
+        app:iconTint="@color/teal_200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameAlbum" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
