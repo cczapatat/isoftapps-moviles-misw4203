@@ -57,6 +57,7 @@ dependencies {
 
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.databinding:databinding-runtime:8.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.0-alpha03")

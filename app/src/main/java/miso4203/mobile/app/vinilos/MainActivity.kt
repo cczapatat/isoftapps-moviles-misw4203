@@ -14,6 +14,7 @@ import miso4203.mobile.app.vinilos.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private var isCollector = false
+    private var currentDestination = 0
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
@@ -41,9 +42,16 @@ class MainActivity : AppCompatActivity() {
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (currentDestination == destination.id) {
+                return@addOnDestinationChangedListener
+            }
+            currentDestination = destination.id
+            binding.headerNav.searchView.clearFocus()
+
             if (navIds.contains(destination.id)) {
                 navView.visibility = View.VISIBLE
                 headerNav.visibility = View.VISIBLE
+                binding.headerNav.searchView.setQuery("", false)
             } else {
                 navView.visibility = View.GONE
                 headerNav.visibility = View.GONE

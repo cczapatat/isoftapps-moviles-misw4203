@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import miso4203.mobile.app.vinilos.databinding.FragmentCollectorBinding
+import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 
 class CollectorFragment : Fragment() {
 
@@ -26,13 +29,17 @@ class CollectorFragment : Fragment() {
             ViewModelProvider(this).get(CollectorViewModel::class.java)
 
         _binding = FragmentCollectorBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
         collectorViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        return root
+        _binding?.btnCreateAlbum?.setOnClickListener {
+            val action = CollectorFragmentDirections.actionCollectorFragmentToAlbumCreateFragment()
+            binding.root.findNavController().navigate(action)
+        }
+
+        return binding.root
     }
 
     override fun onDestroyView() {
