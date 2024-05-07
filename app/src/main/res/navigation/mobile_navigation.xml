@@ -17,6 +17,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_album_create"
+        android:name="miso4203.mobile.app.vinilos.ui.album_create.AlbumCreateFragment"
+        android:label="@string/album_title"
+        tools:layout="@layout/fragment_album_create">
+        <action
+            android:id="@+id/actionAlbumCreateFragmentToCollectorFragment"
+            app:destination="@+id/navigation_collector" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_album_detail"
         android:name="miso4203.mobile.app.vinilos.ui.album_detail.AlbumDetailFragment"
         android:label="@string/album_detail"
@@ -57,5 +67,9 @@
         android:id="@+id/navigation_collector"
         android:name="miso4203.mobile.app.vinilos.ui.collector.CollectorFragment"
         android:label="@string/collector_title"
-        tools:layout="@layout/fragment_collector" />
+        tools:layout="@layout/fragment_collector">
+        <action
+            android:id="@+id/actionCollectorFragmentToAlbumCreateFragment"
+            app:destination="@+id/navigation_album_create" />
+        </fragment>
 </navigation>
