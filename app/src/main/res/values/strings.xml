@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">App Vinilos</string>
+    <string name="view_artist_albums">View Albums</string>
     <string name="album_title">Albums</string>
     <string name="album_detail">Album Detail</string>
+    <string name="artist_detail">Artist Detail</string>
     <string name="artist_title">Artists</string>
     <string name="collector_title">Collectors</string>
     <string name="album_detail_artists_title">Artists:</string>
@@ -16,4 +18,5 @@
     <string name="exit">Exit</string>
     <string name="profile">Profile</string>
     <string name="vinilos">Vinilos</string>
+    <string name="artist_detail_placeholder">Here comes the description of this good band</string>
 </resources>

@@ -9,6 +9,7 @@ import com.android.volley.toolbox.Volley
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.AlbumDetail
 import miso4203.mobile.app.vinilos.models.Artist
+import miso4203.mobile.app.vinilos.models.ArtistDetail
 import miso4203.mobile.app.vinilos.models.Performer
 import miso4203.mobile.app.vinilos.models.Track
 import org.json.JSONArray
@@ -140,6 +141,40 @@ class NetworkServiceAdapter constructor(context: Context) {
             })
         )
     }
+
+    suspend fun getArtistById(artistId: Int) = suspendCoroutine { cont ->
+        requestQueue.add(
+            getRequest("musicians/${artistId}", { response ->
+                val resp = JSONObject(response)
+                val artistDetail = ArtistDetail(
+                    id = resp.optInt("id", -1),
+                    name = resp.optString("name", UNKNOWN),
+                    image = resp.optString("image", COVER_UNKNOWN),
+                    description = resp.optString("description", UNKNOWN),
+                    birthDate = resp.optString("birthDate", UNKNOWN),
+                    albums = arrayListOf(),
+                )
+                for (i in 0 until resp.getJSONArray("albums").length()) {
+                    val item = resp.getJSONArray("albums").getJSONObject(i)
+                    artistDetail.albums.add(
+                        Album(
+                            id = item.optInt("id", -1),
+                            name = item.optString("name", UNKNOWN),
+                            cover = item.optString("cover", COVER_UNKNOWN),
+                            recordLabel = item.optString("recordLabel", UNKNOWN),
+                            releaseDate = item.optString("releaseDate", UNKNOWN),
+                            genre = item.optString("genre", UNKNOWN),
+                            description = item.optString("description", UNKNOWN)
+                        )
+                    )
+                }
+                cont.resume(artistDetail)
+            }, {
+                cont.resumeWithException(it)
+            })
+        )
+    }
+
 
     private fun getRequest(
         path: String,
