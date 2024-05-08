@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import miso4203.mobile.app.vinilos.database.VinylRoomDatabase
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.repositories.AlbumRepository
 
@@ -17,7 +18,10 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _albums = MutableLiveData<List<Album>>()
     private val _albumsOrigin = mutableListOf<Album>()
-    private val albumRepository = AlbumRepository(application)
+    private val albumRepository = AlbumRepository(
+        application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao()
+    )
 
     val albums: LiveData<List<Album>>
         get() = _albums
