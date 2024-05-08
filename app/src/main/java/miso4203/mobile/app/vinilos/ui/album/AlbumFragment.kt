@@ -71,10 +71,9 @@ class AlbumFragment : Fragment() {
                     viewModelAdapter?.albums = viewModel.albumsOrigin
                     return
                 } else if (query.length >= ACCEPTABLE_QUERY_STRING_LENGHT) {
-                    val itemsFiltered = viewModel.albumsOrigin.filter {
+                    viewModelAdapter?.albums = viewModel.albumsOrigin.filter {
                         it.name.lowercase().contains(query.lowercase())
                     }
-                    viewModelAdapter?.albums = itemsFiltered
                 }
             }
         })
