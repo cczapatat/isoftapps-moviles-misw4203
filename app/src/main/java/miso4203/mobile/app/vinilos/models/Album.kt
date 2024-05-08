@@ -4,8 +4,8 @@ open class Album(
     open val id: Int = 0,
     open val name: String,
     open val cover: String,
-    open val releaseDate: String,
-    open val description: String,
+    open val releaseDate: String = "",
+    open val description: String = "",
     open val genre: String,
-    open val recordLabel: String
+    val recordLabel: String = ""
 )

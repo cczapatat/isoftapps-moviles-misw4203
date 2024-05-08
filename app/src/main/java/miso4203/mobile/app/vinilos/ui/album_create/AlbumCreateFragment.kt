@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import miso4203.mobile.app.vinilos.R
-import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumCreateBinding
 import miso4203.mobile.app.vinilos.models.Album
 import java.util.Calendar
@@ -22,7 +21,7 @@ class AlbumCreateFragment: Fragment() {
     private var _binding: FragmentAlbumCreateBinding? = null
     private lateinit var viewModel: AlbumCreateViewModel
     private val binding get() = _binding!!
-    lateinit var dateEdt: EditText
+    private lateinit var dateEdt: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +41,7 @@ class AlbumCreateFragment: Fragment() {
 
             val datePickerDialog = DatePickerDialog(
                 binding.root.context,
-                { view, year, monthOfYear, dayOfMonth ->
+                { _, year, monthOfYear, dayOfMonth ->
                     val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
                     dateEdt.setText(dat)
                 },
@@ -104,8 +103,9 @@ class AlbumCreateFragment: Fragment() {
     }
 
    private fun navigateToCollector() {
-        val action = AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment()
-        binding.root.findNavController().navigate(action)
+       binding.root.findNavController().navigate(
+           AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment()
+       )
     }
 
     private fun showMessage(s: String) {

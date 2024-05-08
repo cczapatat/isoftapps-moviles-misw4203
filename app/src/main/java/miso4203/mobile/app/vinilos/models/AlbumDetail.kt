@@ -7,8 +7,7 @@ data class AlbumDetail(
     override val releaseDate: String,
     override val description: String,
     override val genre: String,
-    override val recordLabel: String,
     val tracks: ArrayList<Track>,
     val performers: ArrayList<Performer>,
-) : Album(id, name, cover, releaseDate, description, genre, recordLabel)
+) : Album(id, name, cover, releaseDate, description, genre)
 
