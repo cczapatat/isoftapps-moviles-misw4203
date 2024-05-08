@@ -8,8 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.Picasso
+import miso4203.mobile.app.vinilos.cache.PicassoWrapper
 import miso4203.mobile.app.vinilos.databinding.FragmentArtistDetailBinding
 
 
@@ -51,8 +50,8 @@ class ArtistDetailFragment : Fragment() {
         viewModel.artistDetail.observe(viewLifecycleOwner) {
             it.apply {
                 try {
-                    Picasso.get().load(it.image)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    PicassoWrapper.getInstance(binding.root.context)
+                        .load(it.image)
                         .into(binding.artistDetailImage)
                 } catch (_: Exception) {
                 }

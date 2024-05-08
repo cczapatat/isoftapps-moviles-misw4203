@@ -10,8 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.Picasso
+import miso4203.mobile.app.vinilos.cache.PicassoWrapper
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumDetailBinding
 import miso4203.mobile.app.vinilos.ui.adapters.PerformerAdapter
 import miso4203.mobile.app.vinilos.ui.adapters.TrackAdapter
@@ -57,8 +56,8 @@ class AlbumDetailFragment : Fragment() {
         viewModel.album.observe(viewLifecycleOwner) {
             it.apply {
                 try {
-                    Picasso.get().load(it.cover)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    PicassoWrapper.getInstance(binding.root.context)
+                        .load(it.cover)
                         .into(binding.albumDetailImage)
                 } catch (_: Exception) {
                 }
@@ -91,8 +90,6 @@ class AlbumDetailFragment : Fragment() {
                 recyclerViewTrack.layoutManager = managerTrack
                 val trackAdapter = TrackAdapter(it.tracks)
                 recyclerViewTrack.adapter = trackAdapter
-
-                it.releaseDate
             }
         }
         viewModel.eventNetworkError.observe(viewLifecycleOwner) {

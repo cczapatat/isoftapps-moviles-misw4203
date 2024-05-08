@@ -8,9 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.R
+import miso4203.mobile.app.vinilos.cache.PicassoWrapper
 import miso4203.mobile.app.vinilos.databinding.ArtistItemBinding
 import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.ui.artist.ArtistFragmentDirections
@@ -36,9 +35,9 @@ class ArtistsAdapter() :
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
         holder.viewDataBinding.also {
             holder.viewDataBinding.artist = artists[position]
-            val artist = artists[position]
-            Picasso.get().load(artists[position].image)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+
+            PicassoWrapper.getInstance(holder.itemView.context)
+                .load(artists[position].image)
                 .into(it.artistImage)
 
             holder.viewDataBinding.root.setOnClickListener {
@@ -51,8 +50,9 @@ class ArtistsAdapter() :
                 android.os.Handler().postDelayed(
                     {
                         holder.viewDataBinding.cardViewArtist.setBackgroundColor(Color.TRANSPARENT)
-                        val action = ArtistFragmentDirections.navigateToArtistDetail(artist.id)
-                        holder.viewDataBinding.root.findNavController().navigate(action)
+                        holder.viewDataBinding.root.findNavController().navigate(
+                            ArtistFragmentDirections.navigateToArtistDetail(artists[position].id)
+                        )
                     }, 150
                 )
             }

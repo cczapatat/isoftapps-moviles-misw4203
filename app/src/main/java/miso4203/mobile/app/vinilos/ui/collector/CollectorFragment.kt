@@ -35,8 +35,9 @@ class CollectorFragment : Fragment() {
             textView.text = it
         }
         _binding?.btnCreateAlbum?.setOnClickListener {
-            val action = CollectorFragmentDirections.actionCollectorFragmentToAlbumCreateFragment()
-            binding.root.findNavController().navigate(action)
+            binding.root.findNavController().navigate(
+                CollectorFragmentDirections.actionCollectorFragmentToAlbumCreateFragment()
+            )
         }
 
         return binding.root
