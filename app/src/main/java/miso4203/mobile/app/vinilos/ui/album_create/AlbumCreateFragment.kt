@@ -69,7 +69,7 @@ class AlbumCreateFragment: Fragment() {
             val cover = binding.coverAlbum.text.toString()
             val releaseDate = binding.dateAlbumDatepicker.text.toString()
             val genre = binding.genreAlbumTextField.selectedItem.toString()
-            val recordLabel = binding.recordLabelAlbumTextField.text.toString()
+            val recordLabel = binding.recordLabelAlbumTextField.selectedItem.toString()
             val argsArray: ArrayList<String> = arrayListOf(name, description, cover, releaseDate, genre, recordLabel)
             if (this.formIsValid(argsArray)) {
                 val album = Album(
