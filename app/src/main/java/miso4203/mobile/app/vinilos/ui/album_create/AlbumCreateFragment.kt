@@ -1,10 +1,12 @@
 package miso4203.mobile.app.vinilos.ui.album_create
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,18 +15,43 @@ import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumCreateBinding
 import miso4203.mobile.app.vinilos.models.Album
+import java.util.Calendar
 
 class AlbumCreateFragment: Fragment() {
 
     private var _binding: FragmentAlbumCreateBinding? = null
     private lateinit var viewModel: AlbumCreateViewModel
     private val binding get() = _binding!!
+    lateinit var dateEdt: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumCreateBinding.inflate(inflater, container, false)
+
+
+        dateEdt = binding.dateAlbumDatepicker
+        dateEdt.showSoftInputOnFocus = false
+        dateEdt.setOnClickListener {
+
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                binding.root.context,
+                { view, year, monthOfYear, dayOfMonth ->
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    dateEdt.setText(dat)
+                },
+                year,
+                month,
+                day
+            )
+            datePickerDialog.show()
+        }
         return binding.root
     }
 
@@ -33,23 +60,17 @@ class AlbumCreateFragment: Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-       /* binding.albumCancelButton.setOnClickListener {
-            navigateToAlbums()
-        }*/
+       binding.btnCancelAlbum.setOnClickListener {
+           navigateToCollector()
+        }
 
         binding.btnCreateAlbum.setOnClickListener {
             val name = binding.nameAlbum.text?.toString()?:""
-            //val description = binding.descripcionAlbumTextField.text.toString()
-            val description = "holaaaa"
-            //val cover = binding.imageAlbumTextField.text.toString()
-            val cover = "que masssss"
-            //val releaseDate = binding.dateAlbumDatepicker.text.toString()
-            val releaseDate = "1984-08-01T00:00:00.000Z"
-            //val genre = binding.genreAlbumTextField.text.toString()
-            // Generos a validar [Classical, Salsa, Rock, Folk]
-            val genre = "Salsa"
-            //val recordLabel = binding.recordLabelAlbumTextField.text.toString()
-            val recordLabel = "Sony Music"
+            val description = binding.descripcionAlbumTextField.text.toString()
+            val cover = binding.coverAlbum.text.toString()
+            val releaseDate = binding.dateAlbumDatepicker.text.toString()
+            val genre = binding.genreAlbumTextField.selectedItem.toString()
+            val recordLabel = binding.recordLabelAlbumTextField.text.toString()
             val argsArray: ArrayList<String> = arrayListOf(name, description, cover, releaseDate, genre, recordLabel)
             if (this.formIsValid(argsArray)) {
                 val album = Album(
@@ -75,7 +96,7 @@ class AlbumCreateFragment: Fragment() {
 
     private fun formIsValid(array: ArrayList<String>): Boolean {
         for (elem in array) {
-            if (TextUtils.isEmpty(elem) || elem.length < 5) {
+            if (TextUtils.isEmpty(elem) || elem.length < 4) {
                 return false
             }
         }
@@ -108,6 +129,11 @@ class AlbumCreateFragment: Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
+
+        binding.btnBack.setOnClickListener {
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+
         activity.actionBar?.title = getString(R.string.album_title)
         viewModel = ViewModelProvider(
             this,
