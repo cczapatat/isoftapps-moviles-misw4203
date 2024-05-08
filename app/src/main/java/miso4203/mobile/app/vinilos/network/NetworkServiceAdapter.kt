@@ -43,8 +43,9 @@ class NetworkServiceAdapter constructor(context: Context) {
             getRequest("albums", { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Album>()
+                var item:JSONObject?
                 for (i in 0 until resp.length()) {
-                    val item = resp.getJSONObject(i)
+                    item = resp.getJSONObject(i)
                     val albumName = item.optString("name", UNKNOWN)
                     list.add(
                         i, Album(
@@ -84,25 +85,27 @@ class NetworkServiceAdapter constructor(context: Context) {
                     tracks = arrayListOf(),
                     performers = arrayListOf(),
                 )
+                var itemtrack:JSONObject?
                 for (i in 0 until resp.getJSONArray("tracks").length()) {
-                    val item = resp.getJSONArray("tracks").getJSONObject(i)
-                    albumDetail.tracks.add(
+                        itemtrack = resp.getJSONArray("tracks").getJSONObject(i)
+                        albumDetail.tracks.add(
                         Track(
-                            id = item.optInt("id", -1),
-                            name = item.optString("name", UNKNOWN),
-                            duration = item.optString("duration", UNKNOWN)
+                            id = itemtrack.optInt("id", -1),
+                            name = itemtrack.optString("name", UNKNOWN),
+                            duration = itemtrack.optString("duration", UNKNOWN)
                         )
                     )
                 }
+                var itemPerformer:JSONObject?
                 for (i in 0 until resp.getJSONArray("performers").length()) {
-                    val item = resp.getJSONArray("performers").getJSONObject(i)
+                    itemPerformer = resp.getJSONArray("performers").getJSONObject(i)
                     albumDetail.performers.add(
                         Performer(
-                            id = item.optInt("id", -1),
-                            name = item.optString("name", UNKNOWN),
-                            image = item.optString("image"),
-                            description = item.optString("description", UNKNOWN),
-                            birthDate = item.optString("birthDate", UNKNOWN),
+                            id = itemPerformer.optInt("id", -1),
+                            name = itemPerformer.optString("name", UNKNOWN),
+                            image = itemPerformer.optString("image"),
+                            description = itemPerformer.optString("description", UNKNOWN),
+                            birthDate = itemPerformer.optString("birthDate", UNKNOWN),
                         )
                     )
                 }
@@ -118,8 +121,9 @@ class NetworkServiceAdapter constructor(context: Context) {
             getRequest("musicians", { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Artist>()
+                var item:JSONObject?
                 for (i in 0 until resp.length()) {
-                    val item = resp.getJSONObject(i)
+                    item = resp.getJSONObject(i)
                     val artistName = item.optString("name", UNKNOWN)
                     list.add(
                         i, Artist(
