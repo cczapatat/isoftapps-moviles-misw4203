@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.ArtistItemBinding
 import miso4203.mobile.app.vinilos.models.Artist
-import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 import miso4203.mobile.app.vinilos.ui.artist.ArtistFragmentDirections
 
 
