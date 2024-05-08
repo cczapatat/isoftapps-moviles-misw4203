@@ -1,10 +1,10 @@
 package miso4203.mobile.app.vinilos.models
 
-data class Artist(
-    val id: Int,
-    val name: String,
-    val image: String,
-    val description: String,
-    val birthDate: String,
-    val totalAlbums: Int,
+open class Artist(
+    open val id: Int,
+    open val name: String,
+    open val image: String,
+    open val description: String,
+    open val birthDate: String,
+    open val totalAlbums: Int,
 )
