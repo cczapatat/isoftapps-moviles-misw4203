@@ -227,7 +227,7 @@
         android:layout_marginEnd="10dp"
         android:background="@color/secondary_90"
         android:textColor="@color/edit_text_color"
-        android:contentDescription="Seleccione un genero"
+        android:contentDescription="Seleccione una disquera"
         android:entries="@array/RecordLabel"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +237,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCreateAlbum"
+        android:id="@+id/btnSaveAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -258,7 +258,6 @@
         android:id="@+id/btnCancelAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
         android:layout_marginTop="134dp"
         android:layout_marginBottom="10dp"
         android:text="Cancel"
@@ -268,7 +267,7 @@
         app:cornerRadius="29dp"
         app:iconTint="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnCreateAlbum"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveAlbum"
         app:layout_constraintTop_toBottomOf="@+id/recordLabelAlbumTextField"
         app:layout_constraintVertical_bias="0.0"
         app:strokeColor="@color/cancel_color" />
