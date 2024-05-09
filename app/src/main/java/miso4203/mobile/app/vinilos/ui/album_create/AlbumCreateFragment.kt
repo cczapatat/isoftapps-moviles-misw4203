@@ -2,6 +2,7 @@ package miso4203.mobile.app.vinilos.ui.album_create
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.navigation.findNavController
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumCreateBinding
 import miso4203.mobile.app.vinilos.models.Album
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class AlbumCreateFragment: Fragment() {
@@ -29,8 +31,11 @@ class AlbumCreateFragment: Fragment() {
     ): View {
         _binding = FragmentAlbumCreateBinding.inflate(inflater, container, false)
 
-
+        val c = Calendar.getInstance()
+        val df = SimpleDateFormat("dd-MMM-yyyy")
+        val formattedDate: String = df.format(c.time)
         dateEdt = binding.dateAlbumDatepicker
+        dateEdt.setText(formattedDate)
         dateEdt.showSoftInputOnFocus = false
         dateEdt.setOnClickListener {
 
@@ -63,7 +68,7 @@ class AlbumCreateFragment: Fragment() {
            navigateToCollector()
         }
 
-        binding.btnCreateAlbum.setOnClickListener {
+        binding.btnSaveAlbum.setOnClickListener {
             val name = binding.nameAlbum.text?.toString()?:""
             val description = binding.descripcionAlbumTextField.text.toString()
             val cover = binding.coverAlbum.text.toString()
