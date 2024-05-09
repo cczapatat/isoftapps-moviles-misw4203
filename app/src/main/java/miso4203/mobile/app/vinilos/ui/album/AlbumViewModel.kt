@@ -39,7 +39,7 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
-    init {
+    fun getData () {
         refreshDataFromNetwork()
     }
 

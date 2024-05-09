@@ -12,9 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import miso4203.mobile.app.vinilos.models.Album
-import miso4203.mobile.app.vinilos.models.AlbumDetail
 import miso4203.mobile.app.vinilos.models.Artist
-import miso4203.mobile.app.vinilos.models.ArtistDetail
 import miso4203.mobile.app.vinilos.models.Performer
 import miso4203.mobile.app.vinilos.models.Track
 import org.json.JSONArray
@@ -59,7 +57,6 @@ class NetworkServiceAdapter constructor(context: Context) {
                             ConnectivityManager.TYPE_ETHERNET -> true
                             else -> false
                         }
-
                     }
                 }
             }
@@ -77,22 +74,8 @@ class NetworkServiceAdapter constructor(context: Context) {
             getRequest("albums", { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Album>()
-                var item: JSONObject?
                 for (i in 0 until resp.length()) {
-                    item = resp.getJSONObject(i)
-                    val albumName = item.optString("name", UNKNOWN)
-                    list.add(
-                        i, Album(
-                            id = item.optInt("id", -1),
-                            name = if (albumName.length > 16) "${
-                                albumName.substring(
-                                    0, 16
-                                )
-                            }..." else albumName,
-                            cover = item.optString("cover", COVER_UNKNOWN),
-                            genre = item.optString("genre", UNKNOWN),
-                        )
-                    )
+                    list.add(i, this.jsonToAlbum(resp.getString(i), true))
                 }
                 cont.resume(list)
             }, {
@@ -103,44 +86,54 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     suspend fun getAlbumById(albumId: Int) = suspendCoroutine { cont ->
         requestQueue.add(
-            getRequest("albums/${albumId}", { response ->
-                val resp = JSONObject(response)
-                val albumDetail = AlbumDetail(
-                    id = resp.optInt("id", -1),
-                    name = resp.optString("name", UNKNOWN),
-                    cover = resp.optString("cover", COVER_UNKNOWN),
-                    releaseDate = resp.optString("releaseDate", UNKNOWN),
-                    genre = resp.optString("genre", UNKNOWN),
-                    description = resp.optString("description", UNKNOWN),
-                    tracks = arrayListOf(),
-                    performers = arrayListOf(),
-                )
-                var itemtrack: JSONObject?
-                for (i in 0 until resp.getJSONArray("tracks").length()) {
-                    itemtrack = resp.getJSONArray("tracks").getJSONObject(i)
-                    albumDetail.tracks.add(
-                        Track(
-                            id = itemtrack.optInt("id", -1),
-                            name = itemtrack.optString("name", UNKNOWN),
-                            duration = itemtrack.optString("duration", UNKNOWN)
-                        )
-                    )
-                }
-                var itemPerformer: JSONObject?
-                for (i in 0 until resp.getJSONArray("performers").length()) {
-                    itemPerformer = resp.getJSONArray("performers").getJSONObject(i)
-                    albumDetail.performers.add(
-                        Performer(
-                            id = itemPerformer.optInt("id", -1),
-                            name = itemPerformer.optString("name", UNKNOWN),
-                        )
-                    )
-                }
-                cont.resume(albumDetail)
+            getRequest("albums/${albumId}", {
+                cont.resume(this.jsonToAlbum(it, false))
             }, {
                 cont.resumeWithException(it)
             })
         )
+    }
+
+    private fun jsonToAlbum(response: String, subStr: Boolean): Album {
+        val resp = JSONObject(response)
+        val albumName = resp.optString("name", UNKNOWN)
+        val albumDetail = Album(
+            id = resp.optInt("id", -1),
+            name = if (subStr && albumName.length > 16) "${
+                albumName.substring(
+                    0, 16
+                )
+            }..." else albumName,
+            cover = resp.optString("cover", COVER_UNKNOWN),
+            releaseDate = resp.optString("releaseDate", UNKNOWN),
+            genre = resp.optString("genre", UNKNOWN),
+            description = resp.optString("description", UNKNOWN),
+            tracks = arrayListOf(),
+            performers = arrayListOf(),
+        )
+        var itemtrack: JSONObject?
+        for (i in 0 until resp.getJSONArray("tracks").length()) {
+            itemtrack = resp.getJSONArray("tracks").getJSONObject(i)
+            albumDetail.tracks.add(
+                Track(
+                    id = itemtrack.optInt("id", -1),
+                    name = itemtrack.optString("name", UNKNOWN),
+                    duration = itemtrack.optString("duration", UNKNOWN)
+                )
+            )
+        }
+        var itemPerformer: JSONObject?
+        for (i in 0 until resp.getJSONArray("performers").length()) {
+            itemPerformer = resp.getJSONArray("performers").getJSONObject(i)
+            albumDetail.performers.add(
+                Performer(
+                    id = itemPerformer.optInt("id", -1),
+                    name = itemPerformer.optString("name", UNKNOWN),
+                )
+            )
+        }
+
+        return albumDetail
     }
 
     suspend fun getArtists() = suspendCoroutine<List<Artist>> { cont ->
@@ -161,6 +154,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                                 )
                             }..." else artistName,
                             image = item.optString("image", COVER_UNKNOWN),
+                            description = item.optString("description", UNKNOWN),
                             totalAlbums = item.optJSONArray("albums")?.length() ?: 0
                         )
                     )
@@ -172,7 +166,7 @@ class NetworkServiceAdapter constructor(context: Context) {
         )
     }
 
-    suspend fun getArtistById(artistId: Int): ArtistDetail {
+    suspend fun getArtistById(artistId: Int): Artist {
         try {
             return this.getPerformer(artistId, "musicians")
         } catch (err: ClientError) {
@@ -192,27 +186,13 @@ class NetworkServiceAdapter constructor(context: Context) {
         requestQueue.add(
             getRequest("${path}/${performerId}", { response ->
                 val resp = JSONObject(response)
-                val artistDetail = ArtistDetail(
+                val artistDetail = Artist(
                     id = resp.optInt("id", -1),
                     name = resp.optString("name", UNKNOWN),
                     image = resp.optString("image", COVER_UNKNOWN),
                     description = resp.optString("description", UNKNOWN),
-                    albums = arrayListOf(),
+                    totalAlbums = resp.optJSONArray("albums")?.length() ?: 0
                 )
-                for (i in 0 until resp.getJSONArray("albums").length()) {
-                    val item = resp.getJSONArray("albums").getJSONObject(i)
-                    artistDetail.albums.add(
-                        Album(
-                            id = item.optInt("id", -1),
-                            name = item.optString("name", UNKNOWN),
-                            cover = item.optString("cover", COVER_UNKNOWN),
-                            recordLabel = item.optString("recordLabel", UNKNOWN),
-                            releaseDate = item.optString("releaseDate", UNKNOWN),
-                            genre = item.optString("genre", UNKNOWN),
-                            description = item.optString("description", UNKNOWN)
-                        )
-                    )
-                }
                 cont.resume(artistDetail)
             }, {
                 cont.resumeWithException(it)
@@ -231,7 +211,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                 "albums",
                 jsonPayload,
                 { response ->
-                    val albumCreated = AlbumDetail(
+                    val albumCreated = Album(
                         id = response.optInt("id"),
                         name = response.optString("name"),
                         cover = response.optString("cover"),

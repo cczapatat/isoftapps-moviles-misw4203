@@ -10,15 +10,18 @@ class AlbumRepository(
     private val albumDao: AlbumDao,
 ) {
     suspend fun refreshData(): List<Album> {
-        val cached = this.albumDao.getAll()
+        return if (NetworkServiceAdapter.isInternetAvailable(application.applicationContext)) {
+            val albums = NetworkServiceAdapter.getInstance(application).getAlbums()
+            this.albumDao.insertManyRaw(albums)
 
-        return if (cached.isNullOrEmpty()) {
-            if (NetworkServiceAdapter.isInternetAvailable(application.applicationContext).not()) {
+            albums
+        } else {
+            val cached = this.albumDao.getAll()
+
+            if (cached.isNullOrEmpty()) {
                 emptyList()
-            } else {
-                NetworkServiceAdapter.getInstance(application).getAlbums()
-            }
-        } else cached
+            } else cached
+        }
     }
 
     suspend fun addAlbum(album: Album): Album {

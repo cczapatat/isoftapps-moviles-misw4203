@@ -8,12 +8,12 @@ import miso4203.mobile.app.vinilos.models.Album
 
 @Dao
 interface AlbumDao {
-    @Query("SELECT * FROM albums")
-    fun getAll(): List<Album>?
+    @Query("SELECT * FROM albums ORDER BY id ASC")
+    suspend fun getAll(): List<Album>?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(album: Album)
+    suspend fun insertManyRaw(albums: List<Album>): List<Long>
 
     @Query("SELECT * FROM albums WHERE id = :albumId LIMIT 1")
-    fun getById(albumId: Int): Album
+    suspend fun getById(albumId: Int): Album
 }
