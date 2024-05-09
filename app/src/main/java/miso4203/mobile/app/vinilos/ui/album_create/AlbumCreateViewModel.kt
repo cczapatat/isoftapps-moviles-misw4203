@@ -10,12 +10,16 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import miso4203.mobile.app.vinilos.database.VinylRoomDatabase
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.repositories.AlbumRepository
 
 class AlbumCreateViewModel(application: Application) : AndroidViewModel(application) {
     private val _album = MutableLiveData<Album>()
-    private val _albumRepository = AlbumRepository(application)
+    private val _albumRepository = AlbumRepository(
+        application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao()
+    )
 
     var album: LiveData<Album>
         get() = _album

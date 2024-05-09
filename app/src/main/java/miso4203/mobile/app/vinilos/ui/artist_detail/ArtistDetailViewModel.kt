@@ -10,16 +10,22 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import miso4203.mobile.app.vinilos.models.ArtistDetail
+import miso4203.mobile.app.vinilos.consts.StaticData
+import miso4203.mobile.app.vinilos.database.VinylRoomDatabase
+import miso4203.mobile.app.vinilos.models.Album
+import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.repositories.ArtistDetailRepository
 
 class ArtistDetailViewModel(application: Application, private val artistId: Int) :
     AndroidViewModel(application) {
 
-    private val _artistDetail = MutableLiveData<ArtistDetail>()
-    private val artistDetailRepository = ArtistDetailRepository(application)
+    private val _artistDetail = MutableLiveData<Artist>()
+    private val artistDetailRepository = ArtistDetailRepository(
+        application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao()
+    )
 
-    val artistDetail: LiveData<ArtistDetail>
+    val artistDetail: LiveData<Artist>
         get() = _artistDetail
 
     private var _eventNetworkError = MutableLiveData(false)
@@ -40,7 +46,15 @@ class ArtistDetailViewModel(application: Application, private val artistId: Int)
         try {
             viewModelScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.IO) {
-                    _artistDetail.postValue(artistDetailRepository.refreshData(artistId))
+                    _artistDetail.postValue(
+                        artistDetailRepository.refreshData(artistId) ?: Artist(
+                            id = 0,
+                            name = StaticData.UNKNOWN,
+                            image = StaticData.COVER_UNKNOWN,
+                            description = StaticData.DESCRIPTION_UNAVAILABLE,
+                            totalAlbums = 0,
+                        )
+                    )
                 }
                 _eventNetworkError.postValue(false)
                 _isNetworkErrorShown.postValue(false)

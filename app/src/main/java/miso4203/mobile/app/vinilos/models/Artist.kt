@@ -1,8 +1,14 @@
 package miso4203.mobile.app.vinilos.models
 
-open class Artist(
-    open val id: Int,
-    open val name: String,
-    open val image: String,
-    open val totalAlbums: Int,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "artists")
+class Artist(
+    @PrimaryKey
+    val id: Int,
+    val name: String,
+    val image: String,
+    val description: String,
+    val totalAlbums: Int,
 )
