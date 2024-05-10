@@ -21,14 +21,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class LoginAlbumsFilterNotExistsAny {
+class LoginArtistsFilterNotExistsAny {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(LoginActivity::class.java)
 
     @Test
-    fun loginAlbumsFilterNotExistsAny() {
+    fun loginArtistsFilterNotExistsAny() {
         val materialButton = onView(
             allOf(
                 withId(R.id.btn_visitor_login), withText("Visitor"),
@@ -44,9 +44,24 @@ class LoginAlbumsFilterNotExistsAny {
         )
         materialButton.perform(click())
 
+        val bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.navigation_artist), withContentDescription("Artists"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_view),
+                        0
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        bottomNavigationItemView.perform(click())
+
         val recyclerView = onView(
             allOf(
-                withId(R.id.albumsRv),
+                withId(R.id.artistRv),
                 withParent(withParent(withId(R.id.nav_host_fragment_activity_main))),
                 isDisplayed()
             )
@@ -67,7 +82,7 @@ class LoginAlbumsFilterNotExistsAny {
             allOf(
                 withParent(
                     allOf(
-                        withId(R.id.albumsRv),
+                        withId(R.id.artistRv),
                         withParent(IsInstanceOf.instanceOf(android.widget.FrameLayout::class.java))
                     )
                 ),
