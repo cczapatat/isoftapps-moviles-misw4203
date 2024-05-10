@@ -37,7 +37,7 @@ class ArtistDetailFragment : Fragment() {
             "You can only access the viewModel after onActivityCreated()"
         }
 
-        binding.btnBack.setOnClickListener {
+        binding.btnBackArt.setOnClickListener {
             activity.onBackPressedDispatcher.onBackPressed()
         }
 
@@ -56,7 +56,7 @@ class ArtistDetailFragment : Fragment() {
                 } catch (_: Exception) {
                 }
 
-                binding.textProfile.text = it.name
+                binding.textProfileArt.text = it.name
                 binding.artistDetailName.text = it.name
                 binding.artistDetailDescription.text = it.description
             }
