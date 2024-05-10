@@ -2,7 +2,6 @@ package miso4203.mobile.app.vinilos.ui.album_create
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -73,7 +72,7 @@ class AlbumCreateFragment: Fragment() {
             val description = binding.descripcionAlbumTextField.text.toString()
             val cover = binding.coverAlbum.text.toString()
             val releaseDateOld = binding.dateAlbumDatepicker.text.toString()
-            var arr = releaseDateOld.split("-")
+            val arr = releaseDateOld.split("-")
             val releaseDate = "${arr[1]}-${arr[0]}-${arr[2]}"
             val genre = binding.genreAlbumTextField.selectedItem.toString()
             val recordLabel = binding.recordLabelAlbumTextField.selectedItem.toString()
@@ -88,13 +87,13 @@ class AlbumCreateFragment: Fragment() {
                     recordLabel = recordLabel
                 )
                 if (viewModel.addNewAlbum(album)) {
-                    showMessage("El álbum se guardo de forma satisfactoria.")
+                    showMessage("The album was saved successfully")
                     navigateToCollector()
                 } else {
-                    showMessage("Ocurrió un error al guardar el álbum.")
+                    showMessage("There was happened an error trying to save the album")
                 }
             } else {
-                showMessage("Todos los campos deben ser diligenciados. Intenta de nuevo!.")
+                showMessage("All of fields must be filled. Try again.")
             }
 
         }

@@ -69,7 +69,7 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
             if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST") return AlbumViewModel(app) as T
             }
-            throw IllegalArgumentException("Unable to construct viewmodel")
+            throw IllegalArgumentException("Unable to construct the view model")
         }
     }
 }

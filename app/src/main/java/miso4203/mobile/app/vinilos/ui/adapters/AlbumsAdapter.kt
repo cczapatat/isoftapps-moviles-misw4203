@@ -15,7 +15,7 @@ import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 
 
-class AlbumsAdapter() :
+class AlbumsAdapter :
     RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
     var albums: List<Album> = emptyList()

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import miso4203.mobile.app.vinilos.consts.StaticData
 import miso4203.mobile.app.vinilos.database.VinylRoomDatabase
-import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.repositories.ArtistDetailRepository
 

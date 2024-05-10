@@ -15,7 +15,7 @@ import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.ui.artist.ArtistFragmentDirections
 
 
-class ArtistsAdapter() :
+class ArtistsAdapter :
     RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
     var artists: List<Artist> = emptyList()

@@ -23,7 +23,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Expresso_test_4_d {
+class ExpressoTest4d {
 
     @Rule
     @JvmField

@@ -67,7 +67,7 @@ class ArtistViewModel(application: Application) : ViewModel() {
             if (modelClass.isAssignableFrom(ArtistViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST") return ArtistViewModel(app) as T
             }
-            throw IllegalArgumentException("Unable to construct viewmodel")
+            throw IllegalArgumentException("Unable to construct the view model")
         }
     }
 }

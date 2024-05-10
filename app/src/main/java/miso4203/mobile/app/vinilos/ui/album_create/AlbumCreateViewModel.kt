@@ -65,7 +65,7 @@ class AlbumCreateViewModel(application: Application) : AndroidViewModel(applicat
                 @Suppress("UNCHECKED_CAST")
                 return AlbumCreateViewModel(app) as T
             }
-            throw IllegalArgumentException("Unable to construct viewmodel")
+            throw IllegalArgumentException("Unable to construct the view model")
         }
     }
 }
