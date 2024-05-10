@@ -1,7 +1,6 @@
 package miso4203.mobile.app.vinilos.repositories
 
 import android.app.Application
-import android.util.Log
 import miso4203.mobile.app.vinilos.database.dao.ArtistDao
 import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.network.CacheManager

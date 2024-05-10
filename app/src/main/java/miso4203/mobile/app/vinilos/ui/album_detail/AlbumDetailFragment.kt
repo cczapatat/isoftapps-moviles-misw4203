@@ -16,6 +16,7 @@ import miso4203.mobile.app.vinilos.ui.adapters.PerformerAdapter
 import miso4203.mobile.app.vinilos.ui.adapters.TrackAdapter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class AlbumDetailFragment : Fragment() {
@@ -72,7 +73,7 @@ class AlbumDetailFragment : Fragment() {
                 binding.textProfile.text = it.name
                 binding.albumDetailName.text = it.name + ":" + it.description + "\n" +
                         "The album was released on " + dateTime.month.name.lowercase()
-                    .capitalize() + " " +
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + " " +
                         dateTime.dayOfMonth.toString() + ", " + dateTime.year.toString()
                 binding.albumDetailPerformersTitle.text = "Performers:"
                 binding.albumDetailTracksTitle.text = "Tracks:"

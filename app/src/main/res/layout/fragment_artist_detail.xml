@@ -90,27 +90,6 @@
         app:layout_constraintTop_toBottomOf="@+id/containerImageArtist"
         tools:text="@string/artist_detail_placeholder" />
 
-    <RelativeLayout
-        android:id="@+id/containerBtnArtist"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintTop_toBottomOf="@id/artist_detail_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/album_icon"
-            android:tint="@color/white"
-            android:tooltipText="@string/view_artist_albums"
-            app:backgroundTint="@color/teal_200"/>
-    </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
