@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
@@ -72,23 +73,7 @@ class NavigateArtistDetailToAlbumTest {
         )
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
-        val floatingActionButton = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.artist_detail_layout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment_activity_main),
-                            0
-                        )
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton.perform(click())
+        pressBack()
     }
 
     private fun childAtPosition(
