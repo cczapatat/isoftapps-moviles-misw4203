@@ -47,6 +47,21 @@ class LoginNavigateToDetailSucessTest {
         )
         materialButton.perform(click())
 
+        val bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.navigation_album), withContentDescription("Albums"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_view),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        bottomNavigationItemView.perform(click())
+
         val recyclerView = onView(
             allOf(
                 withId(R.id.albumsRv),

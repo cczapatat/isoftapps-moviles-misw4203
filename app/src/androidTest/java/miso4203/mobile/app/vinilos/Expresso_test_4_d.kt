@@ -23,7 +23,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Expresso_test_4_d {
+class ExpressoTest4d {
 
     @Rule
     @JvmField
@@ -46,7 +46,26 @@ class Expresso_test_4_d {
         )
         materialButton.perform(click())
 
+        val searchAutoComplete = onView(
+            allOf(
+                withId(R.id.searchView),
+
+                isDisplayed()
+            )
+        )
+        searchAutoComplete.perform(click())
+        searchAutoComplete.perform(typeText(""),closeSoftKeyboard())
+
         val recyclerView = onView(
+            allOf(
+                withId(R.id.albumsRv),
+                withParent(withParent(withId(R.id.nav_host_fragment_activity_main))),
+                isDisplayed()
+            )
+        )
+        recyclerView.check(matches(isDisplayed()))
+
+        val recyclerView2 = onView(
             allOf(
                 withId(R.id.albumsRv),
                 childAtPosition(
@@ -55,7 +74,7 @@ class Expresso_test_4_d {
                 )
             )
         )
-        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
+        recyclerView2.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
         val materialButton2 = onView(
             allOf(

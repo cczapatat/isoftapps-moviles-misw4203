@@ -2,47 +2,275 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.album_create.AlbumCreateFragment">
+
+    <LinearLayout
+        android:id="@+id/add_album_title"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="@color/purple_500"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add album"
+            android:textColor="@color/teal_700"
+            android:textSize="18dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBack"
+                android:layout_width="46dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@color/purple_500"
+                android:text="X"
+                android:textColor="@color/teal_700"
+                android:textSize="20dp"
+                app:backgroundTint="@color/purple_500" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/coverAlbumLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="Cover"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/coverAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingLeft="5dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:inputType="text"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coverAlbumLabel" />
 
     <TextView
         android:id="@+id/nameAlbumLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Nombre album"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="Album Name"
         android:textColor="@color/teal_700"
-        android:textSize="18dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coverAlbum" />
 
     <EditText
         android:id="@+id/nameAlbum"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingLeft="5dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
         android:inputType="text"
         android:orientation="horizontal"
-        android:shadowColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/nameAlbumLabel"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameAlbumLabel" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCreateAlbum"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/releaseDateAlbumLabel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="124dp"
-        android:text="Save"
-        android:textAlignment="center"
-        android:textColor="@color/txt_btn_color"
-        app:backgroundTint="@color/purple_500"
-
-        app:icon="@drawable/visitor_icon"
-        app:iconTint="@color/teal_200"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/nameAlbum"
+        android:gravity="start"
+        android:text="Release Date"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameAlbum" />
+
+    <EditText
+        android:id="@+id/dateAlbumDatepicker"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingLeft="5dp"
+        android:autofillHints="01/01/1999"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:clickable="true"
+        android:focusable="true"
+        android:inputType="date"
+        android:maxLines="1"
+        android:minHeight="48dp"
+        android:focusedByDefault="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/releaseDateAlbumLabel" />
+
+
+    <TextView
+        android:id="@+id/descriptionAlbumLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="Description"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateAlbumDatepicker" />
+
+    <EditText
+        android:id="@+id/descripcionAlbumTextField"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="top"
+        android:paddingLeft="5dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:inputType="text"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionAlbumLabel" />
+
+
+    <TextView
+        android:id="@+id/generoAlbumLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="Genre"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descripcionAlbumTextField" />
+
+    <Spinner
+        android:id="@+id/genreAlbumTextField"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:contentDescription="Seleccione un genero"
+        android:entries="@array/Generos"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generoAlbumLabel" />
+
+    <TextView
+        android:id="@+id/recordLabelAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="Record Label"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genreAlbumTextField" />
+
+
+    <Spinner
+        android:id="@+id/recordLabelAlbumTextField"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:contentDescription="Seleccione una disquera"
+        android:entries="@array/RecordLabel"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordLabelAlbum" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginBottom="10dp"
+        android:text="Save"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/save_color"
+        app:iconTint="@color/teal_200"
+        app:cornerRadius="29dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordLabelAlbumTextField"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancelAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="134dp"
+        android:layout_marginBottom="10dp"
+        android:text="Cancel"
+        android:textAlignment="center"
+        android:textColor="@color/save_color"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="29dp"
+        app:iconTint="@color/teal_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveAlbum"
+        app:layout_constraintTop_toBottomOf="@+id/recordLabelAlbumTextField"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/cancel_color" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

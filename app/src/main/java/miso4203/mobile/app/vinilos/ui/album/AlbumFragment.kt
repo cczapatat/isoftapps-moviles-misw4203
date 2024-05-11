@@ -15,6 +15,9 @@ import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
 import miso4203.mobile.app.vinilos.ui.adapters.AlbumsAdapter
 
 class AlbumFragment : Fragment() {
+    companion object {
+        const val ACCEPTABLE_QUERY_STRING_LENGHT = 3
+    }
 
     private var _binding: FragmentAlbumBinding? = null
 
@@ -45,6 +48,8 @@ class AlbumFragment : Fragment() {
             this, AlbumViewModel.Factory(activity.application)
         )[AlbumViewModel::class.java]
 
+        viewModel.getData()
+
         viewModel.albums.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.albums = this
@@ -67,12 +72,11 @@ class AlbumFragment : Fragment() {
                 if (query.isNullOrBlank()) {
                     viewModelAdapter?.albums = viewModel.albumsOrigin
                     return
+                } else if (query.length >= ACCEPTABLE_QUERY_STRING_LENGHT) {
+                    viewModelAdapter?.albums = viewModel.albumsOrigin.filter {
+                        it.name.lowercase().contains(query.lowercase())
+                    }
                 }
-
-                val itemsFiltered = viewModel.albumsOrigin.filter {
-                    it.name.lowercase().contains(query.lowercase())
-                }
-                viewModelAdapter?.albums = itemsFiltered
             }
         })
 

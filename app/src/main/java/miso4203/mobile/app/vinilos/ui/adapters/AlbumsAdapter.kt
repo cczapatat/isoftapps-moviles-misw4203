@@ -8,15 +8,14 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.Picasso
 import miso4203.mobile.app.vinilos.R
+import miso4203.mobile.app.vinilos.cache.PicassoWrapper
 import miso4203.mobile.app.vinilos.databinding.AlbumItemBinding
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.ui.album.AlbumFragmentDirections
 
 
-class AlbumsAdapter() :
+class AlbumsAdapter :
     RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
     var albums: List<Album> = emptyList()
@@ -35,12 +34,10 @@ class AlbumsAdapter() :
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            val album = albums[position]
+            holder.viewDataBinding.album = albums[position]
 
-            holder.viewDataBinding.album = album
-
-            Picasso.get().load(albums[position].cover)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+            PicassoWrapper.getInstance(holder.itemView.context)
+                .load(albums[position].cover)
                 .into(it.albumCover)
 
             holder.viewDataBinding.root.setOnClickListener {
@@ -53,8 +50,9 @@ class AlbumsAdapter() :
                 android.os.Handler().postDelayed(
                     {
                         holder.viewDataBinding.cardView.setBackgroundColor(Color.TRANSPARENT)
-                        val action = AlbumFragmentDirections.navigateToAlbumDetail(album.id)
-                        holder.viewDataBinding.root.findNavController().navigate(action)
+                        holder.viewDataBinding.root.findNavController().navigate(
+                            AlbumFragmentDirections.navigateToAlbumDetail(albums[position].id)
+                        )
                     }, 150
                 )
             }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentArtistBinding
 import miso4203.mobile.app.vinilos.ui.adapters.ArtistsAdapter
+import miso4203.mobile.app.vinilos.ui.album.AlbumFragment
 
 class ArtistFragment : Fragment() {
 
@@ -67,12 +68,11 @@ class ArtistFragment : Fragment() {
                 if (query.isNullOrBlank()) {
                     viewModelAdapter?.artists = viewModel.artistsOrigin
                     return
+                } else if (query.length >= AlbumFragment.ACCEPTABLE_QUERY_STRING_LENGHT) {
+                    viewModelAdapter?.artists = viewModel.artistsOrigin.filter {
+                        it.name.lowercase().contains(query.lowercase())
+                    }
                 }
-
-                val itemsFiltered = viewModel.artistsOrigin.filter {
-                    it.name.lowercase().contains(query.lowercase())
-                }
-                viewModelAdapter?.artists = itemsFiltered
             }
         })
 

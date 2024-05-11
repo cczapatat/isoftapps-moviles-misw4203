@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Generos">
+        <item>Salsa</item>
+        <item>Classical</item>
+        <item>Rock</item>
+        <item>Folk</item>
+    </string-array>
+    <string-array name="RecordLabel">
+        <item>Sony Music</item>
+        <item>EMI</item>
+        <item>Discos Fuentes</item>
+        <item>Elektra</item>
+        <item>Fania Records</item>
+    </string-array>
+</resources>

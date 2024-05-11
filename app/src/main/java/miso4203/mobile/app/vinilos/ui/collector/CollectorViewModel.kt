@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class CollectorViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is collector Fragment"
+        value = ""
     }
     val text: LiveData<String> = _text
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import miso4203.mobile.app.vinilos.database.VinylRoomDatabase
 import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.repositories.ArtistRepository
 
@@ -16,7 +17,10 @@ class ArtistViewModel(application: Application) : ViewModel() {
 
     private val _artists = MutableLiveData<List<Artist>>()
     private val _artistsOrigin = mutableListOf<Artist>()
-    private val artistRepository = ArtistRepository(application)
+    private val artistRepository = ArtistRepository(
+        application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao()
+    )
 
     val artists: LiveData<List<Artist>>
         get() = _artists
@@ -63,7 +67,7 @@ class ArtistViewModel(application: Application) : ViewModel() {
             if (modelClass.isAssignableFrom(ArtistViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST") return ArtistViewModel(app) as T
             }
-            throw IllegalArgumentException("Unable to construct viewmodel")
+            throw IllegalArgumentException("Unable to construct the view model")
         }
     }
 }

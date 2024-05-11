@@ -1,30 +1,60 @@
 package miso4203.mobile.app.vinilos.ui.album_create
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import miso4203.mobile.app.vinilos.R
-import miso4203.mobile.app.vinilos.databinding.FragmentAlbumBinding
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumCreateBinding
 import miso4203.mobile.app.vinilos.models.Album
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class AlbumCreateFragment: Fragment() {
 
     private var _binding: FragmentAlbumCreateBinding? = null
     private lateinit var viewModel: AlbumCreateViewModel
     private val binding get() = _binding!!
+    private lateinit var dateEdt: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumCreateBinding.inflate(inflater, container, false)
+
+        val c = Calendar.getInstance()
+        val df = SimpleDateFormat("dd-MMM-yyyy")
+        val formattedDate: String = df.format(c.time)
+        dateEdt = binding.dateAlbumDatepicker
+        dateEdt.setText(formattedDate)
+        dateEdt.showSoftInputOnFocus = false
+        dateEdt.setOnClickListener {
+
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                binding.root.context,
+                { _, year, monthOfYear, dayOfMonth ->
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    dateEdt.setText(dat)
+                },
+                year,
+                month,
+                day
+            )
+            datePickerDialog.show()
+        }
         return binding.root
     }
 
@@ -33,23 +63,19 @@ class AlbumCreateFragment: Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-       /* binding.albumCancelButton.setOnClickListener {
-            navigateToAlbums()
-        }*/
+       binding.btnCancelAlbum.setOnClickListener {
+           navigateToCollector()
+        }
 
-        binding.btnCreateAlbum.setOnClickListener {
+        binding.btnSaveAlbum.setOnClickListener {
             val name = binding.nameAlbum.text?.toString()?:""
-            //val description = binding.descripcionAlbumTextField.text.toString()
-            val description = "holaaaa"
-            //val cover = binding.imageAlbumTextField.text.toString()
-            val cover = "que masssss"
-            //val releaseDate = binding.dateAlbumDatepicker.text.toString()
-            val releaseDate = "1984-08-01T00:00:00.000Z"
-            //val genre = binding.genreAlbumTextField.text.toString()
-            // Generos a validar [Classical, Salsa, Rock, Folk]
-            val genre = "Salsa"
-            //val recordLabel = binding.recordLabelAlbumTextField.text.toString()
-            val recordLabel = "Sony Music"
+            val description = binding.descripcionAlbumTextField.text.toString()
+            val cover = binding.coverAlbum.text.toString()
+            val releaseDateOld = binding.dateAlbumDatepicker.text.toString()
+            val arr = releaseDateOld.split("-")
+            val releaseDate = "${arr[1]}-${arr[0]}-${arr[2]}"
+            val genre = binding.genreAlbumTextField.selectedItem.toString()
+            val recordLabel = binding.recordLabelAlbumTextField.selectedItem.toString()
             val argsArray: ArrayList<String> = arrayListOf(name, description, cover, releaseDate, genre, recordLabel)
             if (this.formIsValid(argsArray)) {
                 val album = Album(
@@ -61,13 +87,13 @@ class AlbumCreateFragment: Fragment() {
                     recordLabel = recordLabel
                 )
                 if (viewModel.addNewAlbum(album)) {
-                    showMessage("El álbum se guardo de forma satisfactoria.")
+                    showMessage("The album was saved successfully")
                     navigateToCollector()
                 } else {
-                    showMessage("Ocurrió un error al guardar el álbum.")
+                    showMessage("There was happened an error trying to save the album")
                 }
             } else {
-                showMessage("Todos los campos deben ser diligenciados. Intenta de nuevo!.")
+                showMessage("All of fields must be filled. Try again.")
             }
 
         }
@@ -75,7 +101,7 @@ class AlbumCreateFragment: Fragment() {
 
     private fun formIsValid(array: ArrayList<String>): Boolean {
         for (elem in array) {
-            if (TextUtils.isEmpty(elem) || elem.length < 5) {
+            if (TextUtils.isEmpty(elem) || elem.length < 3) {
                 return false
             }
         }
@@ -83,8 +109,9 @@ class AlbumCreateFragment: Fragment() {
     }
 
    private fun navigateToCollector() {
-        val action = AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment()
-        binding.root.findNavController().navigate(action)
+       binding.root.findNavController().navigate(
+           AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment()
+       )
     }
 
     private fun showMessage(s: String) {
@@ -108,6 +135,11 @@ class AlbumCreateFragment: Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
+
+        binding.btnBack.setOnClickListener {
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+
         activity.actionBar?.title = getString(R.string.album_title)
         viewModel = ViewModelProvider(
             this,

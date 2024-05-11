@@ -21,20 +21,35 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class LoginAlbumsFilterNotExistsAny {
+class CreateAlbumEmptyFieldsOne {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(LoginActivity::class.java)
 
     @Test
-    fun loginAlbumsFilterNotExistsAny() {
+    fun createAlbumEmptyFieldsOne() {
         val materialButton = onView(
             allOf(
-                withId(R.id.btn_visitor_login), withText("Visitor"),
+                withId(R.id.btn_collector_login), withText("Collector"),
                 childAtPosition(
                     childAtPosition(
                         withId(android.R.id.content),
+                        0
+                    ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton.perform(click())
+
+        val bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.navigation_collector), withContentDescription("Collectors"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_view),
                         0
                     ),
                     2
@@ -42,39 +57,51 @@ class LoginAlbumsFilterNotExistsAny {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        bottomNavigationItemView.perform(click())
 
-        val recyclerView = onView(
+        val materialButton2 = onView(
             allOf(
-                withId(R.id.albumsRv),
-                withParent(withParent(withId(R.id.nav_host_fragment_activity_main))),
+                withId(R.id.btnCreateAlbum), withText("Create Album"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment_activity_main),
+                        0
+                    ),
+                    1
+                ),
                 isDisplayed()
             )
         )
-        recyclerView.check(matches(isDisplayed()))
+        materialButton2.perform(click())
 
-        val searchAutoComplete = onView(
+        val materialButton3 = onView(
             allOf(
-                withId(R.id.searchView),
-
+                withId(R.id.btnSaveAlbum), withText("Save"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment_activity_main),
+                        0
+                    ),
+                    13
+                ),
                 isDisplayed()
             )
         )
-        searchAutoComplete.perform(click())
-        searchAutoComplete.perform(typeText("notExists1234"),closeSoftKeyboard())
+        materialButton3.perform(click())
 
-        val viewGroup = onView(
+        val textView = onView(
             allOf(
+                withId(R.id.textProfile), withText("Add album"),
                 withParent(
                     allOf(
-                        withId(R.id.albumsRv),
-                        withParent(IsInstanceOf.instanceOf(android.widget.FrameLayout::class.java))
+                        withId(R.id.add_album_title),
+                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
                     )
                 ),
                 isDisplayed()
             )
         )
-        viewGroup.check(doesNotExist())
+        textView.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

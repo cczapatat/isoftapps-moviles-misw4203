@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs")
+    id("com.google.devtools.ksp")
+    id("androidx.room")
 }
 
 android {
@@ -38,9 +40,19 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+}
+
+ksp {
+    arg("option_name", "option_value")
+    // other options...
 }
 
 dependencies {
+    val roomVersion = "2.6.1"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -50,10 +62,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation ("androidx.tracing:tracing:1.1.0")
+    implementation("androidx.tracing:tracing:1.1.0")
 
     implementation("com.squareup.picasso:picasso:2.71828")
-
 
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.databinding:databinding-runtime:8.3.2")
@@ -63,4 +74,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.0-alpha03")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.0-alpha03")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.0-alpha03")
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    implementation("androidx.room:room-ktx:$roomVersion")
 }

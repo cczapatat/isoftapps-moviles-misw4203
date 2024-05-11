@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="55dip"
-    android:orientation="horizontal"
-    android:weightSum="1" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textViewPerformer"
+    <data>
+        <import type="android.widget.CompoundButton"/>
+        <variable name="performer" type="miso4203.mobile.app.vinilos.models.Performer"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.22"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:gravity="center_vertical"
-        android:paddingLeft="0dp"
-        android:text="@string/element_text" />
+        android:layout_height="55dip"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/textViewPerformer"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="0.22"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:paddingLeft="0dp"
+            android:text="@{performer.name}"
+            tools:text="Mana"/>
 
-    <Button
-        android:id="@+id/checkout"
-        style="Theme.MaterialComponents.DayNight.DarkActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.89"
-        android:drawableLeft="@drawable/artist_icon_button"
-        android:drawableTint="@color/white"
-        android:backgroundTint="@color/teal_600"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:padding="10dp"
-        android:textSize="8dp" />
+        <Button
+            android:id="@+id/btnArtistDetail"
+            style="Theme.MaterialComponents.DayNight.DarkActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.89"
+            android:drawableLeft="@drawable/artist_icon_button"
+            android:drawableTint="@color/white"
+            android:backgroundTint="@color/teal_600"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:padding="10dp"
+            android:textSize="8dp" />
+    </LinearLayout>
 
-</LinearLayout>
+</layout>
 

@@ -1,4 +1,4 @@
-package miso4203.mobile.app.vinilos.ui.album_detail
+package miso4203.mobile.app.vinilos.ui.artist_detail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,21 +10,22 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import miso4203.mobile.app.vinilos.consts.StaticData
 import miso4203.mobile.app.vinilos.database.VinylRoomDatabase
-import miso4203.mobile.app.vinilos.models.Album
-import miso4203.mobile.app.vinilos.repositories.AlbumDetailRepository
+import miso4203.mobile.app.vinilos.models.Artist
+import miso4203.mobile.app.vinilos.repositories.ArtistDetailRepository
 
-class AlbumDetailViewModel(application: Application, private val albumId: Int) :
+class ArtistDetailViewModel(application: Application, private val artistId: Int) :
     AndroidViewModel(application) {
 
-    private val _album = MutableLiveData<Album>()
-    private val albumDetailRepository = AlbumDetailRepository(
+    private val _artistDetail = MutableLiveData<Artist>()
+    private val artistDetailRepository = ArtistDetailRepository(
         application,
-        VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao()
+        VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao()
     )
 
-    val album: LiveData<Album>
-        get() = _album
+    val artistDetail: LiveData<Artist>
+        get() = _artistDetail
 
     private var _eventNetworkError = MutableLiveData(false)
 
@@ -44,7 +45,15 @@ class AlbumDetailViewModel(application: Application, private val albumId: Int) :
         try {
             viewModelScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.IO) {
-                    _album.postValue(albumDetailRepository.refreshData(albumId))
+                    _artistDetail.postValue(
+                        artistDetailRepository.refreshData(artistId) ?: Artist(
+                            id = 0,
+                            name = StaticData.UNKNOWN,
+                            image = StaticData.COVER_UNKNOWN,
+                            description = StaticData.DESCRIPTION_UNAVAILABLE,
+                            totalAlbums = 0,
+                        )
+                    )
                 }
                 _eventNetworkError.postValue(false)
                 _isNetworkErrorShown.postValue(false)
@@ -58,11 +67,11 @@ class AlbumDetailViewModel(application: Application, private val albumId: Int) :
         _isNetworkErrorShown.value = true
     }
 
-    class Factory(private val application: Application, private val albumId: Int) :
+    class Factory(private val application: Application, private val artistId: Int) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(AlbumDetailViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST") return AlbumDetailViewModel(application, albumId) as T
+            if (modelClass.isAssignableFrom(ArtistDetailViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST") return ArtistDetailViewModel(application, artistId) as T
             }
             throw IllegalArgumentException("Unable to construct viewModel")
         }
