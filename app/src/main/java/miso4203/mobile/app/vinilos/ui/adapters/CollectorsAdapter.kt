@@ -24,7 +24,7 @@ class CollectorsAdapter : RecyclerView.Adapter<CollectorsAdapter.CollectorViewHo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectorsAdapter.CollectorViewHolder {
         val withDataBinding: CollectorItemBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), AlbumsAdapter.AlbumViewHolder.LAYOUT, parent, false
+            LayoutInflater.from(parent.context), CollectorsAdapter.CollectorViewHolder.LAYOUT, parent, false
         )
 
         return CollectorsAdapter.CollectorViewHolder(withDataBinding)

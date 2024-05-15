@@ -11,7 +11,7 @@ import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.models.Collector
 
-@Database(entities = [Album::class, Artist::class, Collector::class], version = 1, exportSchema = false)
+@Database(entities = [Album::class, Artist::class, Collector::class], version = 2, exportSchema = false)
 abstract class VinylRoomDatabase : RoomDatabase() {
 
     abstract fun albumsDao(): AlbumDao

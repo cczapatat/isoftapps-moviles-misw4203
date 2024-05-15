@@ -52,7 +52,7 @@
                     android:paddingEnd="8dp"
                     android:paddingBottom="3dp"
                     android:textSize="16sp"
-                    android:text="@{collector.name}"
+                    android:text="@{collector.email}"
                     tools:text="Collecctor"/>
 
                 <TextView
@@ -65,7 +65,7 @@
                     android:paddingBottom="3dp"
                     android:layout_alignParentTop="true"
                     android:layout_toEndOf="@id/collectorCover"
-                    android:text="Collection"
+                    android:text="@{collector.name}"
                     android:textStyle="bold"
                     android:textSize="24sp"
                     tools:text="Collector"/>
