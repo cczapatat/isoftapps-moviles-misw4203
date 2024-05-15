@@ -38,20 +38,7 @@ class CollectorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        /*val collectorViewModel =
-            ViewModelProvider(this)[CollectorViewModel::class.java]*/
-
         _binding = FragmentCollectorBinding.inflate(inflater, container, false)
-
-        /*val textView: TextView = binding.textNotifications
-        collectorViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
-       /* _binding?.btnCreateAlbum?.setOnClickListener {
-            binding.root.findNavController().navigate(
-                CollectorFragmentDirections.actionCollectorFragmentToAlbumCreateFragment()
-            )
-        }*/
         viewModelAdapter = CollectorsAdapter()
 
         return binding.root
