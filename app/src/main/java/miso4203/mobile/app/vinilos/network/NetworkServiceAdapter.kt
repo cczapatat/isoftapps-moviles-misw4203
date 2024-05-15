@@ -13,6 +13,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.Artist
+import miso4203.mobile.app.vinilos.models.Collector
+import miso4203.mobile.app.vinilos.models.CollectorAlbum
+import miso4203.mobile.app.vinilos.models.FavoritePerformer
 import miso4203.mobile.app.vinilos.models.Performer
 import miso4203.mobile.app.vinilos.models.Track
 import org.json.JSONArray
@@ -214,6 +217,62 @@ class NetworkServiceAdapter constructor(context: Context) {
                     cont.resumeWithException(it)
                 })
         )
+    }
+
+    suspend fun getCollectors() = suspendCoroutine<List<Collector>> { cont ->
+        requestQueue.add(
+            getRequest("collectors", { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Collector>()
+                for (i in 0 until resp.length()) {
+                    list.add(i, this.jsonToCollector(resp.getString(i), true))
+                }
+                cont.resume(list)
+            }, {
+                cont.resumeWithException(it)
+            })
+        )
+    }
+
+    private fun jsonToCollector(response: String, subStr: Boolean): Collector {
+        val resp = JSONObject(response)
+        val collectorName = resp.optString("name", UNKNOWN)
+        val collectorDetail = Collector(
+            id = resp.optInt("id", -1),
+            name = if (subStr && collectorName.length > 16) "${
+                collectorName.substring(
+                    0, 16
+                )
+            }..." else collectorName,
+            telephone = resp.optString("telephone", UNKNOWN),
+            email = resp.optString("email", UNKNOWN),
+            favoritePerformers = arrayListOf(),
+            collectorAlbums = arrayListOf(),
+        )
+        var itemAlbum: JSONObject?
+        for (i in 0 until resp.getJSONArray("collectorAlbums").length()) {
+            itemAlbum = resp.getJSONArray("collectorAlbums").getJSONObject(i)
+            collectorDetail.collectorAlbums.add(
+                CollectorAlbum(
+                    id = itemAlbum.optInt("id", -1),
+                    price = itemAlbum.optInt("price", -1),
+                    status = itemAlbum.optString("status", UNKNOWN)
+                )
+            )
+        }
+        var itemPerformer: JSONObject?
+        for (i in 0 until resp.getJSONArray("favoritePerformers").length()) {
+            itemPerformer = resp.getJSONArray("favoritePerformers").getJSONObject(i)
+            collectorDetail.favoritePerformers.add(
+                FavoritePerformer(
+                    id = itemPerformer.optInt("id", -1),
+                    name = itemPerformer.optString("name", UNKNOWN),
+                    image = itemPerformer.optString("image", COVER_UNKNOWN),
+                )
+            )
+        }
+
+        return collectorDetail
     }
 
     private fun getRequest(
