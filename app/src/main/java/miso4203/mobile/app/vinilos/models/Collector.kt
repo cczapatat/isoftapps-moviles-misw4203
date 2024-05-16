@@ -6,7 +6,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 
 @Entity(tableName = "collectors")
-@TypeConverters(FavoritePerformerConvert::class, AlbumConverter::class)
+@TypeConverters(FavoritePerformerConvert::class, AlbumListConverter::class)
 class Collector(
     @PrimaryKey
     val id: Int = 0,
@@ -15,7 +15,11 @@ class Collector(
     val email: String,
     val favoritePerformers: ArrayList<FavoritePerformer> = arrayListOf(),
     val collectorAlbums: ArrayList<CollectorAlbum> = arrayListOf(),
-)
+) {
+    override fun toString(): String {
+        return "$id,$name,$telephone,$email"
+    }
+}
 
 object FavoritePerformerConvert {
     @TypeConverter
@@ -46,7 +50,7 @@ object FavoritePerformerConvert {
 
 }
 
-object AlbumConverter {
+object AlbumListConverter {
     @TypeConverter
     fun toString(albums: ArrayList<CollectorAlbum>): String {
         val stringList = mutableListOf<String>()

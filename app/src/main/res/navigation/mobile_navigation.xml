@@ -74,6 +74,9 @@
         <action
             android:id="@+id/navigate_to_collector_detail"
             app:destination="@+id/navigation_collector_detail" />
+        <argument
+            android:name="collectorId"
+            app:argType="integer" />
     </fragment>
 
     <fragment
