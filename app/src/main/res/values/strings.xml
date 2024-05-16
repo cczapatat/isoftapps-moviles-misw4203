@@ -9,6 +9,7 @@
     <string name="album_detail_artists_title">Artists:</string>
     <string name="album_detail_tracks_title">Tracks:</string>
     <string name="album_cover_desc">Album\'s cover</string>
+    <string name="collector_album_cover_desc">Collector Albums\'s cover</string>
     <string name="element_text">performer</string>
     <string name="track_text">Track item</string>
     <string name="element_text_track">track</string>

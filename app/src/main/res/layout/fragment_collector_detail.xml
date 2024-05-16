@@ -4,39 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.album_detail.CollectorDetailFragment"
-    android:id="@+id/album_detail_layout">
+    tools:context=".ui.collector_detail.CollectorDetailFragment"
+    android:id="@+id/collector_detail_layout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <TextView
-            android:id="@+id/textProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="16dp"
-            android:text="Collector Detail"
-            android:textColor="@color/teal_700"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_notifications"
+        <LinearLayout
+            android:id="@+id/collector_album_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="58dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingLeft="10dp"
+            android:background="@color/purple_500"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/textCollectorAlbumGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="@color/teal_700"
+                android:textSize="18dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/purple_500"
+                    android:layout_alignParentEnd="true"
+                    android:text="X"
+                    android:textColor="@color/teal_700"
+                    android:textSize="20dp"
+                    app:backgroundTint="@color/purple_500" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/collector_album_image"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:contentDescription="@string/collector_album_cover_desc"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@+id/collector_album_title"
+            tools:layout_editor_absoluteX="0dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/collectorAlbumsRv"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:paddingBottom="55dp"
+            android:paddingTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/collector_album_image"
+            tools:listitem="@layout/collector_album_item"
+            android:clickable="false"
+            android:contextClickable="false"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateAlbum"
@@ -52,8 +83,7 @@
             app:icon="@drawable/visitor_icon"
             app:iconTint="@color/teal_200"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textProfile" />
-
+            app:layout_constraintTop_toBottomOf="@+id/collectorAlbumsRv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

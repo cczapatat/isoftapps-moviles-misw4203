@@ -6,12 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import miso4203.mobile.app.vinilos.database.dao.AlbumDao
 import miso4203.mobile.app.vinilos.database.dao.ArtistDao
+import miso4203.mobile.app.vinilos.database.dao.CollectorAlbumDao
 import miso4203.mobile.app.vinilos.database.dao.CollectorDao
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.Artist
 import miso4203.mobile.app.vinilos.models.Collector
+import miso4203.mobile.app.vinilos.models.CollectorAlbum
 
-@Database(entities = [Album::class, Artist::class, Collector::class], version = 2, exportSchema = false)
+@Database(entities = [Album::class, Artist::class, Collector::class, CollectorAlbum::class], version = 2, exportSchema = false)
 abstract class VinylRoomDatabase : RoomDatabase() {
 
     abstract fun albumsDao(): AlbumDao
@@ -19,6 +21,8 @@ abstract class VinylRoomDatabase : RoomDatabase() {
     abstract fun artistsDao(): ArtistDao
 
     abstract fun collectorsDao(): CollectorDao
+
+    abstract fun collectorAlbumsDao(): CollectorAlbumDao
 
     companion object {
         @Volatile

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.widget.LinearLayout"/>
+        <variable name="collectorAlbum" type="miso4203.mobile.app.vinilos.models.CollectorAlbum"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewCollectorAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/brown_50"
+            app:strokeWidth="1dp"
+            android:background="@color/focused_item_color"
+            app:cardCornerRadius="3dp"
+            android:focusable="true"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:focusable="true"
+                android:clickable="false">
+
+                <ImageView
+                    android:id="@+id/collectorAlbumCover"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+
+
+                <TextView
+                    android:id="@+id/textCollectorAlbumGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@id/collectorAlbumCover"
+                    android:paddingStart="8dp"
+                    android:paddingTop="55dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="3dp"
+                    android:textSize="16sp"
+                    android:text="@{collectorAlbum.album.genre}"
+                    tools:text="CollectorAlbumGenre"/>
+
+                <TextView
+                    android:id="@+id/textCollectorAlbumName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="3dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@id/collectorAlbumCover"
+                    android:text="@{collectorAlbum.album.name}"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    tools:text="Collector"/>
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
