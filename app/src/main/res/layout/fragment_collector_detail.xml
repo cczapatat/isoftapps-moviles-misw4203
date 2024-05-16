@@ -36,13 +36,13 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnBack"
-                    android:layout_width="46dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple_500"
                     android:layout_alignParentEnd="true"
-                    android:text="X"
+                    android:background="@color/purple_500"
+                    android:text="@string/x"
                     android:textColor="@color/teal_700"
-                    android:textSize="20dp"
+                    android:textSize="28sp"
                     app:backgroundTint="@color/purple_500" />
             </RelativeLayout>
 
@@ -71,18 +71,28 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateAlbum"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="104dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="32dp"
-            android:text="Create Album"
+            android:text="@string/add_album_btn"
             android:textAlignment="center"
-            android:textColor="@color/txt_btn_color"
-
-            app:backgroundTint="@color/purple_500"
-            app:icon="@drawable/visitor_icon"
-            app:iconTint="@color/teal_200"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/teal_700"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collectorAlbumsRv" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddTrack"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/add_track_btn"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/teal_700"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/collectorAlbumsRv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

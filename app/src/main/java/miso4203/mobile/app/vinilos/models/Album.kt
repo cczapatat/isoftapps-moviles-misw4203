@@ -20,7 +20,7 @@ class Album(
     val performers: ArrayList<Performer> = arrayListOf(),
 ) {
     override fun toString(): String {
-        return "$id,$name,$cover,$genre"
+        return name
     }
 }
 

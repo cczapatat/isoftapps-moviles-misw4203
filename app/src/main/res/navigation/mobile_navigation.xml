@@ -37,6 +37,9 @@
         <action
             android:id="@+id/navigate_to_artist_from_album"
             app:destination="@+id/navigation_artist_detail" />
+        <action
+            android:id="@+id/actionAlbumDetailFragmentToTrackAddFragment"
+            app:destination="@+id/navigation_track_add"/>
         <argument
             android:name="albumId"
             app:argType="integer" />
@@ -90,8 +93,21 @@
         <action
             android:id="@+id/actionCollectorDetailFragmentToAlbumCreateFragment"
             app:destination="@+id/navigation_album_create" />
+        <action
+            android:id="@+id/actionCollectorDetailFragmentToTrackAddFragment"
+            app:destination="@+id/navigation_track_add"/>
+        <action
+            android:id="@+id/navigate_to_album_detail_from_collector"
+            app:destination="@+id/navigation_album_detail" />
         <argument
             android:name="collectorId"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_track_add"
+        android:name="miso4203.mobile.app.vinilos.ui.track_add.TrackAddFragment"
+        android:label="Add Track"
+        tools:layout="@layout/fragment_track_add">
     </fragment>
 </navigation>

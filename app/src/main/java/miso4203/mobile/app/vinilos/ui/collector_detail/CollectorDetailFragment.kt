@@ -15,7 +15,7 @@ import miso4203.mobile.app.vinilos.cache.PicassoWrapper
 import miso4203.mobile.app.vinilos.databinding.FragmentCollectorDetailBinding
 import miso4203.mobile.app.vinilos.ui.adapters.CollectorAlbumsAdapter
 
-class CollectorDetailFragment: Fragment() {
+class CollectorDetailFragment : Fragment() {
     private var _binding: FragmentCollectorDetailBinding? = null
     private val binding
         get() = _binding!!
@@ -35,6 +35,12 @@ class CollectorDetailFragment: Fragment() {
         _binding?.btnCreateAlbum?.setOnClickListener {
             binding.root.findNavController().navigate(
                 CollectorDetailFragmentDirections.actionCollectorDetailFragmentToAlbumCreateFragment()
+            )
+        }
+
+        _binding?.btnAddTrack?.setOnClickListener {
+            binding.root.findNavController().navigate(
+                CollectorDetailFragmentDirections.actionCollectorDetailFragmentToTrackAddFragment()
             )
         }
 
@@ -70,7 +76,8 @@ class CollectorDetailFragment: Fragment() {
                     PicassoWrapper.getInstance(binding.root.context)
                         .load(it[0].album?.cover)
                         .into(binding.collectorAlbumImage)
-                } catch (_: Exception) { }
+                } catch (_: Exception) {
+                }
             }
         }
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
