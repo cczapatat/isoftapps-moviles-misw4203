@@ -3,6 +3,7 @@ package miso4203.mobile.app.vinilos.repositories
 import android.app.Application
 import miso4203.mobile.app.vinilos.database.dao.AlbumDao
 import miso4203.mobile.app.vinilos.models.Album
+import miso4203.mobile.app.vinilos.models.Track
 import miso4203.mobile.app.vinilos.network.NetworkServiceAdapter
 
 class AlbumRepository(
@@ -26,5 +27,9 @@ class AlbumRepository(
 
     suspend fun addAlbum(album: Album): Album {
         return NetworkServiceAdapter.getInstance(application).addAlbum(album)
+    }
+
+    suspend fun addTrack(albumId: Int, track: Track): Track {
+        return NetworkServiceAdapter.getInstance(application).addTrackToAlbum(albumId, track)
     }
 }

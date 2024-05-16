@@ -52,6 +52,7 @@ ksp {
 }
 
 dependencies {
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     val roomVersion = "2.6.1"
 
     implementation("androidx.core:core-ktx:1.9.0")

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.track_add.TrackAddFragment">
+
+    <LinearLayout
+        android:id="@+id/add_album_title"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="@color/purple_500"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,RtlSymmetry">
+
+        <TextView
+            android:id="@+id/titleAddTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_track"
+            android:textColor="@color/teal_700"
+            android:textSize="30sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBackTrackAdd"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@color/purple_500"
+                android:text="@string/x"
+                android:textColor="@color/teal_700"
+                android:textSize="28sp"
+                app:backgroundTint="@color/purple_500" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/albumsTxtAddTrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="@string/album_name_track"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerAlbumAddTrack"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:contentDescription="@string/spinner_album_add_track"
+        android:entries="@array/Generos"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumsTxtAddTrack" />
+
+    <TextView
+        android:id="@+id/titleTrackAddName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="@string/track_name"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAlbumAddTrack" />
+
+    <EditText
+        android:id="@+id/txtTrackAddName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingStart="5dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:inputType="text"
+        android:orientation="horizontal"
+        android:maxLength="50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTrackAddName"
+        tools:ignore="LabelFor,RtlSymmetry"
+        tools:text="Track XYZ"
+        android:autofillHints="" />
+
+    <TextView
+        android:id="@+id/titleTrackAddDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="@string/track_duration"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTrackAddName" />
+
+    <EditText
+        android:id="@+id/txtTrackAddDuration"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingStart="5dp"
+        android:background="@color/secondary_90"
+        android:textColor="@color/edit_text_color"
+        android:inputType="text"
+        android:orientation="horizontal"
+        android:maxLength="5"
+        android:tooltipText="05:30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTrackAddDuration"
+        tools:ignore="LabelFor,RtlSymmetry"
+        tools:text="05:30"
+        android:autofillHints="" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveTrack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/save"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/save_color"
+        app:cornerRadius="29dp"
+        app:iconTint="@color/teal_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTrackAddDuration"
+        app:layout_constraintVertical_bias="0.977" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancelTrack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/cancel"
+        android:textAlignment="center"
+        android:textColor="@color/save_color"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="29dp"
+        app:iconTint="@color/teal_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveTrack"
+        app:layout_constraintTop_toBottomOf="@+id/txtTrackAddDuration"
+        app:layout_constraintVertical_bias="0.977"
+        app:strokeColor="@color/cancel_color" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

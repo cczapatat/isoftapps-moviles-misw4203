@@ -205,25 +205,21 @@ class NetworkServiceAdapter constructor(context: Context) {
             .put("genre", album.genre).put("recordLabel", album.recordLabel)
 
         requestQueue.add(
-            postRequest(
-                "albums",
-                jsonPayload,
-                { response ->
-                    val albumCreated = Album(
-                        id = response.optInt("id"),
-                        name = response.optString("name"),
-                        cover = response.optString("cover"),
-                        releaseDate = response.optString("releaseDate"),
-                        description = response.optString("description"),
-                        genre = response.optString("genre"),
-                        tracks = ArrayList(),
-                        performers = ArrayList()
-                    )
-                    cont.resume(albumCreated)
-                },
-                {
-                    cont.resumeWithException(it)
-                })
+            postRequest("albums", jsonPayload, { response ->
+                val albumCreated = Album(
+                    id = response.optInt("id"),
+                    name = response.optString("name"),
+                    cover = response.optString("cover"),
+                    releaseDate = response.optString("releaseDate"),
+                    description = response.optString("description"),
+                    genre = response.optString("genre"),
+                    tracks = ArrayList(),
+                    performers = ArrayList()
+                )
+                cont.resume(albumCreated)
+            }, {
+                cont.resumeWithException(it)
+            })
         )
     }
 
@@ -255,6 +251,23 @@ class NetworkServiceAdapter constructor(context: Context) {
                 cont.resumeWithException(it)
             })
         )
+    }
+
+    suspend fun addTrackToAlbum(albumId: Int, track: Track) = suspendCoroutine { cont ->
+        val jsonPayload = JSONObject()
+        jsonPayload.put("name", track.name).put("duration", track.duration)
+
+        requestQueue.add(postRequest("albums/${albumId}/tracks", jsonPayload, { response ->
+            cont.resume(
+                Track(
+                    id = response.optInt("id", 0),
+                    name = response.optString("name", UNKNOWN),
+                    duration = response.optString("duration", "0.0")
+                )
+            )
+        }, {
+            cont.resumeWithException(it)
+        }))
     }
 
     private fun jsonToCollector(response: String, subStr: Boolean): Collector {
@@ -334,11 +347,7 @@ class NetworkServiceAdapter constructor(context: Context) {
         errorListener: Response.ErrorListener
     ): JsonObjectRequest {
         return JsonObjectRequest(
-            Request.Method.POST,
-            BASE_URL + path,
-            body,
-            responseListener,
-            errorListener
+            Request.Method.POST, BASE_URL + path, body, responseListener, errorListener
         )
     }
 }
