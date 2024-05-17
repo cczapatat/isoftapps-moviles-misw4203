@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import miso4203.mobile.app.vinilos.databinding.FragmentTrackAddBinding
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.Track
@@ -45,6 +46,7 @@ class TrackAddFragment : Fragment() {
             activity.onBackPressedDispatcher.onBackPressed()
         }
 
+        val args: TrackAddFragmentArgs by navArgs()
         viewModel = ViewModelProvider(
             this, TrackAddViewModel.Factory(activity.application)
         )[TrackAddViewModel::class.java]
@@ -56,7 +58,11 @@ class TrackAddFragment : Fragment() {
                     binding.root.context, android.R.layout.simple_spinner_item, itList
                 )
                 adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val pos = if (args.albumId > 0) {
+                    adp.getPosition(itList.find { args.albumId == it.id })
+                } else 0
                 spinner.adapter = adp
+                spinner.setSelection(pos)
             }
 
             binding.btnSaveTrack.setOnClickListener {

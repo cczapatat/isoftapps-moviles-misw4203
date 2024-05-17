@@ -1,5 +1,7 @@
 package miso4203.mobile.app.vinilos.ui.collector_detail
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +25,7 @@ class CollectorDetailFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: CollectorDetailViewModel
     private var viewModelAdapter: CollectorAlbumsAdapter? = null
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,18 +34,6 @@ class CollectorDetailFragment : Fragment() {
     ): View {
         _binding = FragmentCollectorDetailBinding.inflate(inflater, container, false)
         viewModelAdapter = CollectorAlbumsAdapter()
-
-        _binding?.btnCreateAlbum?.setOnClickListener {
-            binding.root.findNavController().navigate(
-                CollectorDetailFragmentDirections.actionCollectorDetailFragmentToAlbumCreateFragment()
-            )
-        }
-
-        _binding?.btnAddTrack?.setOnClickListener {
-            binding.root.findNavController().navigate(
-                CollectorDetailFragmentDirections.actionCollectorDetailFragmentToTrackAddFragment()
-            )
-        }
 
         return binding.root
     }
@@ -80,8 +71,33 @@ class CollectorDetailFragment : Fragment() {
                 }
             }
         }
+
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
+        }
+
+        sharedPreferences = activity.getSharedPreferences("CLL_APP", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("isCollector", false)) {
+            _binding?.btnCreateAlbum?.setOnClickListener {
+                binding.root.findNavController().navigate(
+                    CollectorDetailFragmentDirections.actionCollectorDetailFragmentToAlbumCreateFragment()
+                )
+            }
+
+            _binding?.btnAddTrack?.setOnClickListener {
+                binding.root.findNavController().navigate(
+                    CollectorDetailFragmentDirections.actionCollectorDetailFragmentToTrackAddFragment(
+                        -1
+                    )
+                )
+            }
+
+            binding.btnCreateAlbum.visibility = View.VISIBLE
+            binding.btnAddTrack.visibility = View.VISIBLE
+        } else {
+            binding.btnCreateAlbum.visibility = View.INVISIBLE
+            binding.btnAddTrack.visibility = View.INVISIBLE
         }
     }
 

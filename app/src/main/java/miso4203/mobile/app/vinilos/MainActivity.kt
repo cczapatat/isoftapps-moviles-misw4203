@@ -1,6 +1,8 @@
 package miso4203.mobile.app.vinilos
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +15,10 @@ import miso4203.mobile.app.vinilos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private var isCollector = false
     private var currentDestination = 0
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,20 +27,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bundle = intent.extras
-        isCollector = bundle?.getBoolean("is_collector", false) ?: false
+        sharedPreferences = getSharedPreferences("CLL_APP", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean(
+            "isCollector", bundle?.getBoolean("is_collector", false) ?: false
+        ).apply()
 
         val headerNav = binding.headerNav.header
         val navView: BottomNavigationView = binding.navView
 
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
 
         navController = navHostFragment.navController
 
         val navIds = arrayListOf(
-            R.id.navigation_album,
-            R.id.navigation_artist,
-            R.id.navigation_collector
+            R.id.navigation_album, R.id.navigation_artist, R.id.navigation_collector
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
