@@ -1,5 +1,7 @@
 package miso4203.mobile.app.vinilos.ui.album_detail
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,11 +29,10 @@ class AlbumDetailFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var viewModel: AlbumDetailViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumDetailBinding.inflate(inflater, container, false)
 
@@ -50,15 +52,13 @@ class AlbumDetailFragment : Fragment() {
 
         val args: AlbumDetailFragmentArgs by navArgs()
         viewModel = ViewModelProvider(
-            this,
-            AlbumDetailViewModel.Factory(activity.application, args.albumId)
+            this, AlbumDetailViewModel.Factory(activity.application, args.albumId)
         )[AlbumDetailViewModel::class.java]
 
         viewModel.album.observe(viewLifecycleOwner) {
             it.apply {
                 try {
-                    PicassoWrapper.getInstance(binding.root.context)
-                        .load(it.cover)
+                    PicassoWrapper.getInstance(binding.root.context).load(it.cover)
                         .into(binding.albumDetailImage)
                 } catch (_: Exception) {
                 }
@@ -71,10 +71,9 @@ class AlbumDetailFragment : Fragment() {
                     LocalDateTime.now()
                 }
                 binding.textProfile.text = it.name
-                binding.albumDetailName.text = it.name + ":" + it.description + "\n" +
-                        "The album was released on " + dateTime.month.name.lowercase()
-                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + " " +
-                        dateTime.dayOfMonth.toString() + ", " + dateTime.year.toString()
+                binding.albumDetailName.text =
+                    it.name + ":" + it.description + "\n" + "The album was released on " + dateTime.month.name.lowercase()
+                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + " " + dateTime.dayOfMonth.toString() + ", " + dateTime.year.toString()
                 binding.albumDetailPerformersTitle.text = "Performers:"
                 binding.albumDetailTracksTitle.text = "Tracks:"
 
@@ -95,6 +94,24 @@ class AlbumDetailFragment : Fragment() {
         }
         viewModel.eventNetworkError.observe(viewLifecycleOwner) {
             if (it) onNetworkError()
+        }
+
+        sharedPreferences = activity.getSharedPreferences("CLL_APP", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("isCollector", false)) {
+            binding.btnGoToAddTrackFromAlbum.setOnClickListener {
+                android.os.Handler().postDelayed({
+                    binding.root.findNavController().navigate(
+                        AlbumDetailFragmentDirections.actionAlbumDetailFragmentToTrackAddFragment(
+                            args.albumId
+                        )
+                    )
+                }, 100)
+            }
+
+            binding.btnGoToAddTrackFromAlbum.visibility = View.VISIBLE
+        } else {
+            binding.btnGoToAddTrackFromAlbum.visibility = View.INVISIBLE
         }
     }
 

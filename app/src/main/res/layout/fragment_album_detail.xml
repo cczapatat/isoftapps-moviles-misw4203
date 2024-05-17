@@ -91,17 +91,42 @@
             app:layout_constraintTop_toBottomOf="@id/album_detail_performers_title"
             tools:listitem="@layout/performer_item"/>
 
-        <TextView
-            android:id="@+id/album_detail_tracks_title"
+        <LinearLayout
+            android:id="@+id/block_track"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:orientation="horizontal"
+            android:weightSum="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/performerDetailRv"
-            tools:text="@string/album_detail_tracks_title" />
+            app:layout_constraintTop_toBottomOf="@id/performerDetailRv">
+            <TextView
+                android:id="@+id/album_detail_tracks_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/album_detail_tracks_title" />
+
+            <Button
+                android:id="@+id/btnGoToAddTrackFromAlbum"
+                style="Theme.MaterialComponents.DayNight.DarkActionBar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="0.89"
+                android:drawableLeft="@drawable/add_circle_24dp_fill0_wght400_grad0_opsz24"
+                android:drawableTint="@color/white"
+                android:backgroundTint="@color/teal_600"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="12dp"
+                android:textSize="8sp"
+                android:tooltipText="Add track"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trackDetailRv"
@@ -110,7 +135,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/album_detail_tracks_title"
+            app:layout_constraintTop_toBottomOf="@id/block_track"
             tools:listitem="@layout/track_item"/>
 
 
