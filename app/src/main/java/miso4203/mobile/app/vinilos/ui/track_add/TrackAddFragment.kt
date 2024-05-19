@@ -2,7 +2,9 @@ package miso4203.mobile.app.vinilos.ui.track_add
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,21 +67,60 @@ class TrackAddFragment : Fragment() {
                 spinner.setSelection(pos)
             }
 
+            //Set to true if there are errors on the screen
+            var errorsOnScreen = false;
+
+            binding.txtTrackAddDuration.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
+                    Unit
+
+                override fun afterTextChanged(s: Editable?) {
+                    errorsOnScreen = !s.toString().matches(Regex("^([0-5]?[0-9]):([0-5][0-9])\$"))
+                    binding.txtTrackAddDuration.error =
+                        if (errorsOnScreen) "Duration must be in format mm:ss" else null
+                }
+            })
+
+
+            binding.txtTrackAddName.setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    val trackName = binding.txtTrackAddName.text.toString()
+                    errorsOnScreen = TextUtils.isEmpty(trackName) || trackName.length < 3
+                    binding.txtTrackAddName.error =
+                        if (errorsOnScreen) "The track name must have at least 3 characters" else null
+                }
+            }
+
             binding.btnSaveTrack.setOnClickListener {
                 val album = binding.spinnerAlbumAddTrack.selectedItem as Album
                 val trackName = binding.txtTrackAddName.text.toString()
                 val duration = binding.txtTrackAddDuration.text.toString()
 
-                if (this.formIsValid(arrayListOf(album.id.toString(), trackName, duration))) {
-                    if (viewModel.addNewTrack(album.id, Track(0, trackName, duration))) {
-                        showMessage("The track was saved successfully")
-                        activity.onBackPressedDispatcher.onBackPressed()
-                    } else {
-                        showMessage("There was happened an error trying to save the track")
-                    }
-                } else {
-                    showMessage("All of fields must be filled. Try again.")
+                val isValidForm = this.formIsValid(
+                    arrayListOf(
+                        album.id.toString(),
+                        trackName,
+                        duration
+                    )
+                ) && !errorsOnScreen
+                val isTrackAdded =
+                    isValidForm && viewModel.addNewTrack(album.id, Track(0, trackName, duration))
+
+                val message = when {
+                    isTrackAdded -> "The track was saved successfully"
+                    isValidForm -> "There was happened an error trying to save the track"
+                    else -> "All of fields must be filled, or some data is invalid"
                 }
+
+                showMessage(message)
+                if (isTrackAdded) activity.onBackPressedDispatcher.onBackPressed()
             }
         }
     }

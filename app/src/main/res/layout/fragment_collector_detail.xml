@@ -48,15 +48,41 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/collector_album_image"
+
+        <RelativeLayout
+            android:id="@+id/containerImageArtist"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:contentDescription="@string/collector_album_cover_desc"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@+id/collector_album_title"
-            tools:layout_editor_absoluteX="0dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@+id/collector_album_title">
+
+            <ImageView
+                android:id="@+id/collector_album_image"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:contentDescription="@string/collector_album_cover_desc"
+                android:scaleType="centerCrop"
+                tools:layout_editor_absoluteX="0dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/collector_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="15dp"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="1"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                tools:text="Collector Name" />
+        </RelativeLayout>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/collectorAlbumsRv"
@@ -64,7 +90,7 @@
             android:layout_height="340dp"
             android:paddingBottom="55dp"
             android:paddingTop="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/collector_album_image"
+            app:layout_constraintTop_toBottomOf="@+id/containerImageArtist"
             tools:listitem="@layout/collector_album_item"
             android:clickable="false"
             android:contextClickable="false"/>

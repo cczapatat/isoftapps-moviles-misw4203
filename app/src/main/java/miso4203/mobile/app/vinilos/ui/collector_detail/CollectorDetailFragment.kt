@@ -62,6 +62,7 @@ class CollectorDetailFragment : Fragment() {
                 viewModelAdapter!!.collector_albums = this
 
                 binding.textCollectorAlbumGenre.text = it[0].album?.genre
+                binding.collectorDetailName.text = it[0].collector?.name
 
                 try {
                     PicassoWrapper.getInstance(binding.root.context)
