@@ -3,10 +3,12 @@ package miso4203.mobile.app.vinilos
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -62,20 +64,35 @@ class CreateAlbumSucessTestOne {
         )
         bottomNavigationItemView.perform(click())
 
-        val materialButton2 = onView(
+        val recyclerView = onView(
             allOf(
-                withId(R.id.btnCreateAlbum), withText("Create Album"),
+                withId(R.id.collectorsRv),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_activity_main),
-                        0
-                    ),
+                    withClassName(`is`("android.widget.FrameLayout")),
                     1
-                ),
-                isDisplayed()
+                )
             )
         )
-        materialButton2.perform(click())
+        recyclerView.perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+
+        val materialButton2 = onView(
+            allOf(
+                withId(R.id.btnCreateAlbum), withText("Add Album"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.collector_detail_layout),
+                        0
+                    ),
+                    3
+                )
+            )
+        )
+        materialButton2.perform(scrollTo(), click())
 
         val appCompatEditText = onView(
             allOf(
@@ -193,8 +210,8 @@ class CreateAlbumSucessTestOne {
 
         val button = onView(
             allOf(
-                withId(R.id.btnCreateAlbum), withText("CREATE ALBUM"),
-                withParent(withParent(withId(R.id.nav_host_fragment_activity_main))),
+                withId(R.id.btnCreateAlbum), withText("ADD ALBUM"),
+                withParent(withParent(withId(R.id.collector_detail_layout))),
                 isDisplayed()
             )
         )
