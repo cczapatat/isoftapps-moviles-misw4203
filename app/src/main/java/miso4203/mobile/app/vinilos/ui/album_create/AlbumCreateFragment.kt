@@ -110,7 +110,7 @@ class AlbumCreateFragment: Fragment() {
 
    private fun navigateToCollector() {
        binding.root.findNavController().navigate(
-           AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment()
+           AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment(100)
        )
     }
 

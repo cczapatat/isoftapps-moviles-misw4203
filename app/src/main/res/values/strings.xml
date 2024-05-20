@@ -9,6 +9,7 @@
     <string name="album_detail_artists_title">Artists:</string>
     <string name="album_detail_tracks_title">Tracks:</string>
     <string name="album_cover_desc">Album\'s cover</string>
+    <string name="collector_album_cover_desc">Collector Albums\'s cover</string>
     <string name="element_text">performer</string>
     <string name="track_text">Track item</string>
     <string name="element_text_track">track</string>
@@ -19,4 +20,17 @@
     <string name="profile">Profile</string>
     <string name="vinilos">Vinilos</string>
     <string name="artist_detail_placeholder">Here comes the description of this good band</string>
+    <string name="add_track">Add track</string>
+    <string name="add_album">Add album</string>
+    <string name="x">X</string>
+    <string name="album_name_track">Album Name</string>
+    <string name="spinner_album_add_track">Select one album</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="track_name">Track Name</string>
+    <string name="track_duration">Duration</string>
+    <string name="add_album_btn">Add Album</string>
+    <string name="add_track_btn">Add Track</string>
+    <string name="duration_placeholder">hh:mm</string>
+    <string name="track_name_placeholder">Track Name</string>
 </resources>

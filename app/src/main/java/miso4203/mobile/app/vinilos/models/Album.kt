@@ -18,7 +18,11 @@ class Album(
     val recordLabel: String = "",
     val tracks: ArrayList<Track> = arrayListOf(),
     val performers: ArrayList<Performer> = arrayListOf(),
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}
 
 object TrackConvert {
     @TypeConverter

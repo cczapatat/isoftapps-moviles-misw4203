@@ -3,44 +3,41 @@ package miso4203.mobile.app.vinilos
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class CreateAlbumEmptyFieldsOne {
+class LoginViewCollectorFilterTest {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(LoginActivity::class.java)
 
     @Test
-    fun createAlbumEmptyFieldsOne() {
+    fun loginViewCollectorFilterTest() {
         val materialButton = onView(
             allOf(
-                withId(R.id.btn_collector_login), withText("Collector"),
+                withId(R.id.btn_visitor_login), withText("Visitor"),
                 childAtPosition(
                     childAtPosition(
                         withId(android.R.id.content),
                         0
                     ),
-                    3
+                    2
                 ),
                 isDisplayed()
             )
@@ -62,64 +59,25 @@ class CreateAlbumEmptyFieldsOne {
         )
         bottomNavigationItemView.perform(click())
 
-        val recyclerView = onView(
+        val searchAutoComplete = onView(
             allOf(
-                withId(R.id.collectorsRv),
-                childAtPosition(
-                    withClassName(Matchers.`is`("android.widget.FrameLayout")),
-                    1
-                )
-            )
-        )
-        recyclerView.perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                click()
-            )
-        )
+                withId(R.id.searchView),
 
-        val materialButton2 = onView(
-            allOf(
-                withId(R.id.btnCreateAlbum), withText("Add Album"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.collector_detail_layout),
-                        0
-                    ),
-                    3
-                )
-            )
-        )
-        materialButton2.perform(scrollTo(), click())
-
-        val materialButton3 = onView(
-            allOf(
-                withId(R.id.btnSaveAlbum), withText("Save"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_activity_main),
-                        0
-                    ),
-                    13
-                ),
                 isDisplayed()
             )
         )
-        materialButton3.perform(click())
+        searchAutoComplete.perform(click())
+        searchAutoComplete.perform(typeText("manolo"), closeSoftKeyboard())
 
         val textView = onView(
             allOf(
-                withId(R.id.textProfile), withText("Add album"),
-                withParent(
-                    allOf(
-                        withId(R.id.add_album_title),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
+                withId(R.id.textCollectorName), withText("Manolo Bellon"),
+                withParent(withParent(withId(R.id.cardViewCollector))),
                 isDisplayed()
             )
         )
-        textView.check(matches(isDisplayed()))
+        textView.check(matches(withText("Manolo Bellon")))
+
     }
 
     private fun childAtPosition(
