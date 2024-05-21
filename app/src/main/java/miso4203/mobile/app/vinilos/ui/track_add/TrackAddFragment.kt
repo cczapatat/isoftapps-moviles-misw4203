@@ -82,6 +82,10 @@ class TrackAddFragment : Fragment() {
                     Unit
 
                 override fun afterTextChanged(s: Editable?) {
+
+                    if(s.toString().length < 5)
+                        return
+
                     errorsOnScreen = !s.toString().matches(Regex("^([0-5]?[0-9]):([0-5][0-9])\$"))
                     binding.txtTrackAddDuration.error =
                         if (errorsOnScreen) "Duration must be in format mm:ss" else null
