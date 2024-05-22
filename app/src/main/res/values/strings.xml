@@ -35,4 +35,7 @@
     <string name="track_name_placeholder">Enter Track Name</string>
     <string name="collectorAlbumCoverDesc">album cover image</string>
     <string name="collectorCoverDesc">collector cover image</string>
+    <string name="app_logo">App logo</string>
+    <string name="album_photo_base">Album photo base</string>
+    <string name="artist_photo_bsse">Artist photo bsse</string>
 </resources>

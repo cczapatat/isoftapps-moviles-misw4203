@@ -13,7 +13,7 @@
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_content"
+        android:id="@+id/lateral_card_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -64,7 +64,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/open_menu_btn"
+                    android:id="@+id/lateral_open_menu_btn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentEnd="false"
