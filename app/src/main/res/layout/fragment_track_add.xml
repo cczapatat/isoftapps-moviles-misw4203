@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/add_album_title"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:background="@color/purple_500"
         android:orientation="horizontal"
         android:paddingStart="10dp"
@@ -23,8 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_track"
+            android:lines="1"
+            android:ellipsize="end"
             android:textColor="@color/teal_700"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,9 +34,13 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBackTrackAdd"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:background="@color/purple_500"
                 android:text="@string/x"
                 android:textColor="@color/teal_700"
@@ -53,6 +59,7 @@
         android:layout_marginEnd="10dp"
         android:gravity="start"
         android:text="@string/album_name_track"
+        android:labelFor="@+id/spinnerAlbumAddTrack"
         android:textColor="@color/teal_700"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +69,11 @@
     <Spinner
         android:id="@+id/spinnerAlbumAddTrack"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="38sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeStepGranularity="2sp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/secondary_90"
@@ -83,6 +94,7 @@
         android:layout_marginEnd="10dp"
         android:gravity="start"
         android:text="@string/track_name"
+        android:labelFor="@id/txtTrackAddName"
         android:textColor="@color/teal_700"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +104,11 @@
     <EditText
         android:id="@+id/txtTrackAddName"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="38sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeStepGranularity="2sp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:paddingStart="5dp"
@@ -117,6 +133,7 @@
         android:layout_marginEnd="10dp"
         android:gravity="start"
         android:text="@string/track_duration"
+        android:labelFor="@+id/txtTrackAddDuration"
         android:textColor="@color/teal_700"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +143,11 @@
     <EditText
         android:id="@+id/txtTrackAddDuration"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="38sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeStepGranularity="2sp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:paddingStart="5dp"
