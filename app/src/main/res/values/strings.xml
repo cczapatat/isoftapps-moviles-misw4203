@@ -38,4 +38,8 @@
     <string name="app_logo">App logo</string>
     <string name="album_photo_base">Album photo base</string>
     <string name="artist_photo_bsse">Artist photo bsse</string>
+    <string name="content_descriptor_menu">Principal Menu</string>
+    <string name="title">Title</string>
+    <string name="add_track_to_album">Add a new track to the album</string>
+    <string name="view_artist_detail_performer_name">View Artist Detail @{performer.name}</string>
 </resources>
