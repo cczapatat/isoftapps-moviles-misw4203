@@ -40,6 +40,7 @@
                     android:layout_height="100dp"
                     android:layout_marginEnd="10dp"
                     android:scaleType="centerCrop"
+                    android:contentDescription="@string/collectorAlbumCoverDesc"
                     tools:srcCompat="@tools:sample/avatars" />
 
 

@@ -32,5 +32,7 @@
     <string name="add_album_btn">Add Album</string>
     <string name="add_track_btn">Add Track</string>
     <string name="duration_placeholder">mm:ss</string>
-    <string name="track_name_placeholder">Track Name</string>
+    <string name="track_name_placeholder">Enter Track Name</string>
+    <string name="collectorAlbumCoverDesc">album cover image</string>
+    <string name="collectorCoverDesc">collector cover image</string>
 </resources>
