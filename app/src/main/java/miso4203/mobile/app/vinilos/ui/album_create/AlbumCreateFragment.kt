@@ -1,5 +1,6 @@
 package miso4203.mobile.app.vinilos.ui.album_create
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
@@ -24,6 +25,7 @@ class AlbumCreateFragment: Fragment() {
     private val binding get() = _binding!!
     private lateinit var dateEdt: EditText
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
