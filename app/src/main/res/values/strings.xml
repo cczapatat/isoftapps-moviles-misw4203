@@ -35,4 +35,8 @@
     <string name="track_name_placeholder">Enter Track Name</string>
     <string name="collectorAlbumCoverDesc">album cover image</string>
     <string name="collectorCoverDesc">collector cover image</string>
+    <string name="content_descriptor_menu">Principal Menu</string>
+    <string name="title">Title</string>
+    <string name="add_track_to_album">Add a new track to the album</string>
+    <string name="view_artist_detail_performer_name">View Artist Detail @{performer.name}</string>
 </resources>

@@ -33,10 +33,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/open_menu_btn"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="11dp"
                 android:background="@drawable/round_button"
+                android:contentDescription="@string/content_descriptor_menu"
                 app:backgroundTint="@color/purple_500"
                 app:cornerRadius="100dp"
                 app:icon="@drawable/menu_top"

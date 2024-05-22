@@ -15,13 +15,15 @@
         <TextView
             android:id="@+id/textViewPerformer"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_weight="0.22"
+            android:layout_height="48dp"
+            android:layout_weight="0.23"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:gravity="center_vertical"
-            android:paddingLeft="0dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
             android:text="@{performer.name}"
+            android:textSize="20sp"
             tools:text="Mana"/>
 
         <Button
@@ -29,14 +31,15 @@
             style="Theme.MaterialComponents.DayNight.DarkActionBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.89"
+            android:layout_weight="0.88"
             android:drawableLeft="@drawable/artist_icon_button"
             android:drawableTint="@color/white"
             android:backgroundTint="@color/teal_600"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:contentDescription="@string/view_artist_detail_performer_name"
             android:padding="10dp"
-            android:textSize="8dp" />
+            android:textSize="19sp" />
     </LinearLayout>
 
 </layout>
