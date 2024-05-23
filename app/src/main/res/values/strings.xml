@@ -42,4 +42,6 @@
     <string name="title">Title</string>
     <string name="add_track_to_album">Add a new track to the album</string>
     <string name="view_artist_detail_performer_name">View Artist Detail @{performer.name}</string>
+    <string name="fragment_artist_detail_title">Title</string>
+    <string name="title_artist_detail_content_description">Nombre del Artista o Banda:</string>
 </resources>

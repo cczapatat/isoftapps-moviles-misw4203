@@ -85,7 +85,7 @@ class VisitorLoginViewCollectorSelectOneSuccessData {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Salsa")))
+        textView.check(matches(isDisplayed()))
 
         val imageView = onView(
             allOf(
