@@ -16,4 +16,7 @@ interface AlbumDao {
 
     @Query("SELECT * FROM albums WHERE id = :albumId LIMIT 1")
     suspend fun getById(albumId: Int): Album
+
+    @Query("DELETE FROM albums")
+    suspend fun deleteAll()
 }

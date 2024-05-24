@@ -25,6 +25,10 @@ class CacheManager(context: Context) {
         }
     }
 
+    fun replaceAlbumDetail(albumId: Int, albumDetail: Album) {
+            albumDetails[albumId] = albumDetail
+    }
+
     fun addArtistDetail(artistId: Int, artistDetail: Artist) {
         if (!artistDetails.containsKey(artistId)) {
             artistDetails[artistId] = artistDetail

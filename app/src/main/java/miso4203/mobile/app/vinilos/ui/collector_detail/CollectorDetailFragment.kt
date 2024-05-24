@@ -82,14 +82,14 @@ class CollectorDetailFragment : Fragment() {
         if (sharedPreferences.getBoolean("isCollector", false)) {
             _binding?.btnCreateAlbum?.setOnClickListener {
                 binding.root.findNavController().navigate(
-                    CollectorDetailFragmentDirections.actionCollectorDetailFragmentToAlbumCreateFragment()
+                    CollectorDetailFragmentDirections.actionCollectorDetailFragmentToAlbumCreateFragment(args.collectorId)
                 )
             }
 
             _binding?.btnAddTrack?.setOnClickListener {
                 binding.root.findNavController().navigate(
                     CollectorDetailFragmentDirections.actionCollectorDetailFragmentToTrackAddFragment(
-                        -1
+                        -1,args.collectorId
                     )
                 )
             }
