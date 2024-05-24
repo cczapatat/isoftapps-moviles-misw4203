@@ -40,11 +40,29 @@ class AlbumDetailViewModel(application: Application, private val albumId: Int) :
         refreshDataFromNetwork()
     }
 
+    fun getData () {
+        refreshDataFromNetworkForced()
+    }
+
     private fun refreshDataFromNetwork() {
         try {
             viewModelScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.IO) {
                     _album.postValue(albumDetailRepository.refreshData(albumId))
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        } catch (_: Exception) {
+            _eventNetworkError.postValue(true)
+        }
+    }
+
+    private fun refreshDataFromNetworkForced() {
+        try {
+            viewModelScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.IO) {
+                    _album.postValue(albumDetailRepository.refreshDataForced(albumId))
                 }
                 _eventNetworkError.postValue(false)
                 _isNetworkErrorShown.postValue(false)
