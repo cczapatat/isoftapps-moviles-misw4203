@@ -1,5 +1,6 @@
 package miso4203.mobile.app.vinilos.ui.album_create
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,9 +12,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import miso4203.mobile.app.vinilos.R
 import miso4203.mobile.app.vinilos.databinding.FragmentAlbumCreateBinding
 import miso4203.mobile.app.vinilos.models.Album
+import miso4203.mobile.app.vinilos.ui.track_add.TrackAddFragmentArgs
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -24,6 +27,7 @@ class AlbumCreateFragment: Fragment() {
     private val binding get() = _binding!!
     private lateinit var dateEdt: EditText
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -109,8 +113,10 @@ class AlbumCreateFragment: Fragment() {
     }
 
    private fun navigateToCollector() {
+       val args: AlbumCreateFragmentArgs by navArgs()
+
        binding.root.findNavController().navigate(
-           AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment(100)
+           AlbumCreateFragmentDirections.actionAlbumCreateFragmentToCollectorFragment(args.collectorId)
        )
     }
 

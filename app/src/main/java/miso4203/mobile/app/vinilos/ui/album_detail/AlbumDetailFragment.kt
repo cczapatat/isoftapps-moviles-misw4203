@@ -55,6 +55,8 @@ class AlbumDetailFragment : Fragment() {
             this, AlbumDetailViewModel.Factory(activity.application, args.albumId)
         )[AlbumDetailViewModel::class.java]
 
+        viewModel.getData()
+
         viewModel.album.observe(viewLifecycleOwner) {
             it.apply {
                 try {
@@ -103,7 +105,7 @@ class AlbumDetailFragment : Fragment() {
                 android.os.Handler().postDelayed({
                     binding.root.findNavController().navigate(
                         AlbumDetailFragmentDirections.actionAlbumDetailFragmentToTrackAddFragment(
-                            args.albumId
+                            args.albumId, -1
                         )
                     )
                 }, 100)

@@ -14,7 +14,4 @@ interface CollectorDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertManyRaw(collectors: List<Collector>): List<Long>
-
-    @Query("SELECT * FROM collectors WHERE id = :collectorId LIMIT 1")
-    suspend fun getById(collectorId: Int): Collector
 }

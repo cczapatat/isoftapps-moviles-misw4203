@@ -31,13 +31,16 @@
                 android:orientation="vertical"
                 android:layout_margin="10dp">
 
+
                 <ImageView
                     android:id="@+id/albumCover"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="10dp"
                     android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    tools:srcCompat="@tools:sample/avatars"
+                    app:contentDescription="@string/album_photo_base"
+                    android:contentDescription="@string/album_photo_base" />
 
                 <TextView
                     android:id="@+id/textAlbumName"
@@ -50,6 +53,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_toEndOf="@id/albumCover"
                     android:text="@{album.name}"
+                    android:contentDescription="@{album.name}"
                     android:textStyle="bold"
                     android:textSize="24sp"
                     tools:text="Mana"/>

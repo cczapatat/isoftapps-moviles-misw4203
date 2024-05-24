@@ -57,6 +57,7 @@ class ArtistDetailFragment : Fragment() {
                 }
 
                 binding.textProfileArt.text = it.name
+                binding.textProfileArt.contentDescription = "${binding.textProfileArt.contentDescription} ${it.name}"
                 binding.artistDetailName.text = it.name
                 binding.artistDetailDescription.text = it.description
             }

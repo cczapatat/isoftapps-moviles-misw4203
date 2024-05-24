@@ -12,10 +12,14 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import miso4203.mobile.app.vinilos.databinding.FragmentTrackAddBinding
 import miso4203.mobile.app.vinilos.models.Album
 import miso4203.mobile.app.vinilos.models.Track
+import miso4203.mobile.app.vinilos.ui.album_create.AlbumCreateFragmentDirections
+import miso4203.mobile.app.vinilos.ui.collector.CollectorFragmentDirections
+import miso4203.mobile.app.vinilos.ui.collector_detail.CollectorDetailFragmentArgs
 
 class TrackAddFragment : Fragment() {
 
@@ -30,7 +34,20 @@ class TrackAddFragment : Fragment() {
 
         return binding.root
     }
+    private fun navigateToCollectorDetail() {
+        val args: TrackAddFragmentArgs by navArgs()
+        val collectorRealID = args.collectorId
+        if(collectorRealID == -1){
+            binding.root.findNavController().navigate(
+                TrackAddFragmentDirections.actionTrackAddFragmentToAlbumDetailFragment(args.albumId)
+            )
+        } else{
+            binding.root.findNavController().navigate(
+                TrackAddFragmentDirections.actionTrackAddFragmentToCollectorDetailFragment(args.collectorId)
+            )
+        }
 
+    }
 
     @SuppressLint("ResourceType")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,6 +99,10 @@ class TrackAddFragment : Fragment() {
                     Unit
 
                 override fun afterTextChanged(s: Editable?) {
+
+                    if(s.toString().length < 5)
+                        return
+
                     errorsOnScreen = !s.toString().matches(Regex("^([0-5]?[0-9]):([0-5][0-9])\$"))
                     binding.txtTrackAddDuration.error =
                         if (errorsOnScreen) "Duration must be in format mm:ss" else null
@@ -120,7 +141,7 @@ class TrackAddFragment : Fragment() {
                 }
 
                 showMessage(message)
-                if (isTrackAdded) activity.onBackPressedDispatcher.onBackPressed()
+                navigateToCollectorDetail()
             }
         }
     }

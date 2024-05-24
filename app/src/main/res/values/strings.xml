@@ -31,6 +31,17 @@
     <string name="track_duration">Duration</string>
     <string name="add_album_btn">Add Album</string>
     <string name="add_track_btn">Add Track</string>
-    <string name="duration_placeholder">hh:mm</string>
-    <string name="track_name_placeholder">Track Name</string>
+    <string name="duration_placeholder">mm:ss</string>
+    <string name="track_name_placeholder">Enter Track Name</string>
+    <string name="collectorAlbumCoverDesc">album cover image</string>
+    <string name="collectorCoverDesc">collector cover image</string>
+    <string name="app_logo">App logo</string>
+    <string name="album_photo_base">Album photo base</string>
+    <string name="artist_photo_bsse">Artist photo bsse</string>
+    <string name="content_descriptor_menu">Principal Menu</string>
+    <string name="title">Title</string>
+    <string name="add_track_to_album">Add a new track to the album</string>
+    <string name="view_artist_detail_performer_name">View Artist Detail @{performer.name}</string>
+    <string name="fragment_artist_detail_title">Title</string>
+    <string name="title_artist_detail_content_description">Nombre del Artista o Banda:</string>
 </resources>

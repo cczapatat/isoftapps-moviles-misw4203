@@ -25,6 +25,13 @@ class AlbumRepository(
         }
     }
 
+    suspend fun refreshDataForced(): List<Album> {
+        val albums = NetworkServiceAdapter.getInstance(application).getAlbums()
+        this.albumDao.deleteAll()
+        this.albumDao.insertManyRaw(albums)
+        return albums
+    }
+
     suspend fun addAlbum(album: Album): Album {
         return NetworkServiceAdapter.getInstance(application).addAlbum(album)
     }

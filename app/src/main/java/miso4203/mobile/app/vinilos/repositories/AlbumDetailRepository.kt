@@ -31,4 +31,21 @@ class AlbumDetailRepository(
             albumDetailByIdFromCache
         }
     }
+
+    suspend fun refreshDataForced(albumId: Int): Album {
+
+        val albumDetailById =
+            if (NetworkServiceAdapter.isInternetAvailable(application.applicationContext)) {
+                NetworkServiceAdapter.getInstance(this.application)
+                    .getAlbumById(albumId = albumId)
+            } else {
+                this.albumDao.getById(albumId)
+            }
+        CacheManager.getInstance(application.applicationContext).replaceAlbumDetail(
+            albumId,
+            albumDetailById,
+        )
+        return albumDetailById
+
+    }
 }
